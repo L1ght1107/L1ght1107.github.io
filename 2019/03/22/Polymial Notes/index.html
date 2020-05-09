@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文致力于介绍多项式家族的算法以及一些有趣的数学知识。另外我打算把所有数学学习内容都放到这个Post，包括组合数学，容斥与莫比乌斯反演等可以学习如何书写 Mobius function and inversion 感觉这是个在数论上挺有用的东西，所以来学习一下（本来想着NOIP前不学新算法。。。） ==定義==假設對於數論函數 $f(n)$ 和 $F(n)$，有以下關係式： $F(n) = \su">
+<meta name="keywords" content="math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Polymial Notes">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/Polymial Notes/index.html">
+<meta property="og:site_name" content="wavwing&#39;s blog">
+<meta property="og:description" content="本文致力于介绍多项式家族的算法以及一些有趣的数学知识。另外我打算把所有数学学习内容都放到这个Post，包括组合数学，容斥与莫比乌斯反演等可以学习如何书写 Mobius function and inversion 感觉这是个在数论上挺有用的东西，所以来学习一下（本来想着NOIP前不学新算法。。。） ==定義==假設對於數論函數 $f(n)$ 和 $F(n)$，有以下關係式： $F(n) = \su">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/greek_2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/mobius_1.png">
+<meta property="og:image" content="http://yoursite.com/images/fft_1.png">
+<meta property="og:image" content="http://yoursite.com/images/fft_2.png">
+<meta property="og:updated_time" content="2019-05-22T10:00:50.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Polymial Notes">
+<meta name="twitter:description" content="本文致力于介绍多项式家族的算法以及一些有趣的数学知识。另外我打算把所有数学学习内容都放到这个Post，包括组合数学，容斥与莫比乌斯反演等可以学习如何书写 Mobius function and inversion 感觉这是个在数论上挺有用的东西，所以来学习一下（本来想着NOIP前不学新算法。。。） ==定義==假設對於數論函數 $f(n)$ 和 $F(n)$，有以下關係式： $F(n) = \su">
+<meta name="twitter:image" content="http://yoursite.com/images/greek_2.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/22/Polymial Notes/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Polymial Notes | wavwing's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wavwing's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">nothing</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Archiv</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/Polymial Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wavwing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wavwing's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Polymial Notes
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-03-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-22T00:00:00+08:00">2019-03-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-05-22 18:00:50" itemprop="dateModified" datetime="2019-05-22T18:00:50+08:00">2019-05-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文致力于介绍多项式家族的算法以及一些有趣的数学知识。另外我打算把所有数学学习内容都放到这个Post，包括组合数学，容斥与莫比乌斯反演等<br><img src="/images/greek_2.jpg" alt="img"><br>可以学习如何书写</p>
+<h1 id="Mobius-function-and-inversion"><a href="#Mobius-function-and-inversion" class="headerlink" title="Mobius function and inversion"></a>Mobius function and inversion</h1><hr>
+<p>感觉这是个在数论上挺有用的东西，所以来学习一下（本来想着NOIP前不学新算法。。。）</p>
+<p>==定義==<br>假設對於數論函數 $f(n)$ 和 $F(n)$，有以下關係式：</p>
+<p>$F(n) = \sum_{d|n} f(d)$</p>
+<p>則將其默比乌斯反轉公式定義為：</p>
+<p>$f(n) = \sum_{d|n} \mu (d) F \left( \frac{n}{d} \right)$</p>
+<p>== 一般形式 ==<br>設$F(x)$及$G(x)$為定義在$[1, \infty)$上的複值函數並且</p>
+<p>$ G(x)=\sum_{1\leqslant n\leqslant x}F\left( \frac{x}{n}\right) $</p>
+<p>則</p>
+<p>$ F(x)=\sum_{1\leqslant n\leqslant x}\mu(n)G\left( \frac{x}{n}\right) $</p>
+<p>== 证明 ==<br>设$\sum<em>{d\mid n}\mu(d) = [n = 1]$，又由于$f(n) = \sum</em>{d\mid n}[\frac{n}{d} = 1]f(d)$，代入得到$f(n) = \sum<em>{d\mid n}\sum</em>{m\mid \frac{n}{d}}\mu(m)f(d)$。</p>
+<p>由于$\sum<em>{d\mid n}\sum</em>{m\mid \frac{n}{d}}$的限制条件其实就是$md\mid n$，故等式可以写成：$f(n) = \sum<em>{m\mid n}\mu(m)\sum</em>{d\mid \frac{n}{m}}f(d) = \sum_{m\mid n}\mu(m)F(\frac{n}{m})$。</p>
+<hr>
+<p>狄利克雷卷积对于数论函数的定义是：</p>
+<p>假如两个数论函数f(n),g(n)</p>
+<script type="math/tex; mode=display">
+(f*g)(n) = \sum\limits_{d|n}f(d)g(\frac{n}{d})</script><p>因此很容易证明狄利克雷卷积满足交换律。</p>
+<p>也可以证明狄利克雷卷积满足结合律 ， 只需要证明左右同时作用在n上时相等即可。</p>
+<p>然后这就说明了数论函数在卷积意义下构成了交换群。</p>
+<p>这时我们需要了解狄利克雷卷积的单位元函数，所谓单位元函数在群论中已经有所见识，很容易想到狄利克雷卷积的单位元函数r满足</p>
+<script type="math/tex; mode=display">
+r*f = f</script><p>从上面定义式来看显然</p>
+<script type="math/tex; mode=display">
+r(n) = [n=1]</script><p>我们来证明一个引理</p>
+<script type="math/tex; mode=display">
+\sum\limits_{d|n}\mu(d) = [n=1]</script><p>n = 1 时显然成立</p>
+<p>n &gt; 1时</p>
+<p>将n写成质因数唯一分解形式</p>
+<script type="math/tex; mode=display">
+\prod\limits_{pi | n} pi^{ki}</script><p>于是</p>
+<p><img src="/images/mobius_1.png" alt="img"></p>
+<p>现在我们来观察如下三个函数：</p>
+<script type="math/tex; mode=display">
+u(n) = 1 \\
+
+r(n) = [n=1]\\
+
+\mu(n) =\begin{cases}
+\mu(1) = 1 \\
+\mu(n) = (-1)^k& 如果n是k个不同质数的积 \\
+\mu(n) = 0 & 其他 
+\end{cases}</script><p>我们很容易发现</p>
+<script type="math/tex; mode=display">
+u*\mu = r</script><p>因为</p>
+<script type="math/tex; mode=display">
+(u*\mu)(n) = \sum\limits_{d|n}\mu(d) = [n=1]</script><h1 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h1><p>看一道经典的容斥的题目.</p>
+<p>有n个人,第$i$个人不能站在第$i$个位置上,问方案数. $n\leq 1e5$</p>
+<p>事实上高中数学必修一集合一章有n=3的题目。。。我们画venn图可以得到答案是2。</p>
+<p>对于1e5，我们很容易想到推广的容斥公式</p>
+<script type="math/tex; mode=display">
+S(n) = \sum\limits_{i=0}^{n}(-1)^{i}C_{n}^{i}(n-i)!</script><p>还是用集合来考虑，对于全集是n的全排列，一个人站对就是所有集合，2人站对就是两个集合的交集部分，三个人就是3个集合的交集部分，这样一来计算全集除去n个集合的面积就是答案，即为上面的公式。</p>
+<p>看上去这道题解决了，那么我们也许还有其他思路来做这道题。</p>
+<p>设f(n)表示n个人随便站的方案数，g(n)表示n人都站错的方案数,那么</p>
+<script type="math/tex; mode=display">
+f(n) = \sum\limits_{i=0}^{n}C_{n}^{i}g(i)</script><p>似乎可以用上面介绍的反演，然而并不行，反演是针对除数函数的。。</p>
+<p>所以我们用常用的脱裤子放屁法来将式子逆优化一下。</p>
+<script type="math/tex; mode=display">
+g(n) = \sum\limits_{i=0}^{n} [n-i=0]C_{n}^{i}g(i)</script><p>我们成功将$O(g(n))$的式子变成$O(ng(n))$。。</p>
+<p>然后开始变魔术</p>
+<p>由杨辉三角的对称我们可以得到</p>
+<script type="math/tex; mode=display">
+\sum\limits_{i=0}^{n}(-1)^{i}C_{n}^{i} = [n=0]</script><p>所以将$n-i=0$替换下,也就是将下面的n替换成n-i带入就是一样的QVQ。</p>
+<p>式子有点复杂：</p>
+<script type="math/tex; mode=display">
+g(n) = \sum\limits_{i=0}^{n}\sum\limits_{j=0}^{n-i}(-1)^{j}C_{n-i}^{j}C_{n}^{i}g(i)</script><p>这里我们考虑$C<em>{n-i}^{j}C</em>{n}^{i}$的意义：从$n$中选两个大小为$i$和$j$的不交集合的方案数。</p>
+<p>所以</p>
+<script type="math/tex; mode=display">
+C_{n-i}^{j}C_{n}^{i} = C_{n}^{j}C_{n-j}^{i}</script><p>其实对比左右发现这也是对称的，即左边的$i$和右边的$j$取得的值仅仅是顺序不用。</p>
+<p>所以</p>
+<script type="math/tex; mode=display">
+g(n) = \sum\limits_{i=0}^{n}\sum\limits_{j=0}^{n-i}(-1)^{j} C_{n}^{j}C_{n-j}^{i}g(i)</script><p>改变求和顺序（不是无穷级数当然可以随便改啦，就跟提公因式一样，反正总枚举量一样）</p>
+<p>其实条件相当于k+m&lt;=n，只不过这样写最后才能完成二项式反演的形式</p>
+<script type="math/tex; mode=display">
+g(n) = \sum\limits_{i=0}^{n}(-1)^{i}C_{n}^{i}\sum\limits_{j=0}^{n-i}C_{n-i}^{j}g(i)</script><p>所以最后那个和式是什么？$f(n-i)$</p>
+<script type="math/tex; mode=display">
+g(n) = \sum\limits_{i=0}^{n}(-1)^{i}C_{n}^{i}f(n-i)</script><p>显然</p>
+<script type="math/tex; mode=display">
+f(n-i) = (n-i)!</script><p>,因此我们就通过一句废话加上变魔术完成了对一个容斥公式的证明。</p>
+<p>又由对称性，我们把它变得漂亮一点</p>
+<script type="math/tex; mode=display">
+g(n) = \sum\limits_{i=0}^{n}(-1)^{n-i}C_{n}^{n-i}f(i)</script><p>至此，二项式反演就完成了</p>
+<hr>
+<h1 id="FFT-Study-Note"><a href="#FFT-Study-Note" class="headerlink" title="FFT Study Note"></a>FFT Study Note</h1><h2 id="FFT学习笔记"><a href="#FFT学习笔记" class="headerlink" title="FFT学习笔记"></a>FFT学习笔记</h2><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Many things are from Flower_pks..Thanks very much.(Although I modify some contents that seems not to be right….)</p>
+<h2 id="复数"><a href="#复数" class="headerlink" title="复数"></a>复数</h2><p>这个东西的基本运算和普通实数没什么区别,只不过带着$i$而已.</p>
+<p>加减分开加,乘法就是交叉相乘,除法没研究过应该用不到，好像只需要乘到分子上就行了吧。</p>
+<h2 id="卷积-Convolution"><a href="#卷积-Convolution" class="headerlink" title="卷积 Convolution"></a>卷积 Convolution</h2><p><strong>卷积(Convolution)</strong>，准确来说是一种<strong>通过两个函数$f$ 和$g$ 生成第三个函数的一种数学算子.</strong><br>而广义上其定义为：<br>$h(x)=∫_{-\infty}^{\infty}g(τ)⋅f(x−τ)dτ$</p>
+<p>而此处我们讨论的是整次多项式域，那么就把其定义划归进多项式，得到</p>
+<p>$A(x)B(x) = \sum\limits<em>{i=0}^{n}\sum\limits</em>{j=0}^{i}A<em>jB</em>{i-j}$</p>
+<p>$A$与$B$都是$n-1$次多项式.</p>
+<p>比较显然的是，在我们合并同类项的情况下，最终卷出来的结果应该有$2n+1$项。</p>
+<h2 id="点值表示法-DotMethod"><a href="#点值表示法-DotMethod" class="headerlink" title="点值表示法 DotMethod"></a>点值表示法 DotMethod</h2><p>上述多项式的形式成为系数表示法,我们可以由相异的$n+1$个点确定一个$n$次的多项式.</p>
+<p>$f(x) ⇒ (x_1,y_1) , (x_2,y_2) …… (x_n,y_n)$</p>
+<h2 id="点值相乘-Dot-Multiply"><a href="#点值相乘-Dot-Multiply" class="headerlink" title="点值相乘 Dot Multiply"></a>点值相乘 Dot Multiply</h2><p>对于两个$n$次多项式,我们需要取$2n+1$个点.<br>$A(x) ⇒ (x<em>1,y_1) , (x_2,y_2) …… (x</em>{2n+1},y<em>{2n+1}’)$<br>$B(x) ⇒ (x_1,y_1’) , (x_2,y_2’) …… (x</em>{2n+1},y_{2n+1}’)$</p>
+<p>由于我们取相同的$x$,所以只需要把$y$相乘.</p>
+<p>$C(x) ⇒ (x<em>1,y_1y_1’) …. (x</em>{2n+1},y<em>{2n+1}y</em>{2n+1}’)$</p>
+<p>这一过程是$O(n)$的.</p>
+<p>不过很显然多项式求值是$O(n)$的,因此DFT(离散傅里叶变换)和IDFT(离散傅里叶逆变换)都是$O(n^2)$的.</p>
+<p>接下来我们把它们优化到$O(nlogn)$</p>
+<h2 id="单位根-Unit-Root"><a href="#单位根-Unit-Root" class="headerlink" title="单位根 Unit Root"></a>单位根 Unit Root</h2><p>(这部分会有一些拓展和更新)</p>
+<p>$\omega^n =1$</p>
+<p>在一个复平面单位圆上以$\frac{2\pi}{n}$为幅角的$n$个根就是单位根.</p>
+<p>欧拉公式:</p>
+<p>$e^{ix}=cosx+isinx$<br>$x=2\pi$<br>$e^{2\pi i}=1=\omega^n$<br>$\omega=e^{\frac{2\pi i}{n}}$</p>
+<p>这个根记作$\omega_n$,称为主次单位根.</p>
+<p>对于其他主次单位根的$k$次幂,记为$\omega_{n}^{k}$</p>
+<h2 id="消去引理Elimination-Lemma"><a href="#消去引理Elimination-Lemma" class="headerlink" title="消去引理Elimination Lemma"></a>消去引理Elimination Lemma</h2><p>$\omega<em>{dn}^{dk} = \omega</em>{n}^{k}$</p>
+<p>proof: 可由欧拉公式得到:</p>
+<p>$\omega<em>{dn}^{dk} = e^{\frac{2\pi i dk}{dn}} = e^{\frac{2\pi ik}{n}} = \omega</em>{n}^{k}$</p>
+<h2 id="折半引理Binary-Lemma"><a href="#折半引理Binary-Lemma" class="headerlink" title="折半引理Binary Lemma"></a>折半引理Binary Lemma</h2><blockquote>
+<p>对于任何大于0的偶数$n$，都有$n$个$n$次单位复根的平方的集合，等于$\frac{n}{2}个\frac{n}{2}$次单位复根的集合.</p>
+</blockquote>
+<p>$(\omega<em>{n}^{k})^2 = \omega</em>{n}^{2k} = \omega_{\frac{n}{2}}^{k}$</p>
+<p>$(\omega<em>{n}^{k+\frac{n}{2}})^2 = \omega</em>{n}^{2k+n}=\omega<em>{n}^{2k}\omega</em>{n}^{n}=\omega<em>{n}^{2k}=\omega</em>{\frac{n}{2}}^{k}$</p>
+<p>单位根个数折半.(其实这就是共轭复数的平凡性质吧….)</p>
+<p>那么接下来，如果对所有的$n$次单位跟平方一下，我们会发现$n/2$次单位根每个都恰好出现了两次——也就是说，在$n$个$n$次单位复数根平方的集合（朴素的集合，即不可重集）里，只有$n/2$个元素。我们参考上面那张图，它的意义就在于方向相对的两只向量，其平方相等。</p>
+<p>那么把所有$n$单位根的平方画到一个数列上就是这样。</p>
+<p><img src="/images/fft_1.png" alt="img"></p>
+<p>后面我们会通过对当前多项式构造两个多项式,使得他们关于$x^2$和当前多项式有关,然后就可以不断分治.</p>
+<h2 id="求和引理"><a href="#求和引理" class="headerlink" title="求和引理"></a>求和引理</h2><blockquote>
+<p>$∀k ∤ n , \sum\limits<em>{i=0}^{n-1}(\omega</em>{n}^{k})^i = 0$</p>
+</blockquote>
+<p>proof:</p>
+<p>$\sum\limits<em>{i=0}^{n-1}(\omega</em>{n}^{k})^i$</p>
+<p>$=\frac{(\omega<em>{n}^{k})^n-1}{\omega</em>{n}^{k}-1}$</p>
+<p>$=0$</p>
+<p>(分母不会为0,因为保证了$k ∤ n$)</p>
+<p>当$k∣n$时,$\sum\limits<em>{i=0}^{n-1}(\omega</em>{n}^{k})^i = n$</p>
+<h2 id="离散傅里叶变换DFT"><a href="#离散傅里叶变换DFT" class="headerlink" title="离散傅里叶变换DFT"></a>离散傅里叶变换DFT</h2><p>对于$n$次多项式$A(x) = \sum\limits_{i=0}^{n}a_ix^i$(这里我们假设最高次幂是$n-1$,不然单位根下标是$n+1$)</p>
+<p>我们取$\omega<em>{n}^{0}$~$\omega</em>{n}^{n-1}$</p>
+<p>多项式项数(注意是最高次幂+1)不是2的次幂就补足0,为了成功分治,只不过多了2倍常数</p>
+<p>对于系数向量$\vec A = [a<em>0,a_1…a</em>{n-1}]$, 对于$k = 0,1,2,3….n-1$</p>
+<p>定义$y<em>k = A(\omega</em>{n}^{k}) = \sum\limits<em>{i=0}^{n-1}a_i\omega</em>{n}^{ki}$</p>
+<p>则称向量$\vec y = [y<em>0,y_1….y</em>{n-1}]$是向量$\vec A$的DFT.</p>
+<h2 id="FFT优化DFT"><a href="#FFT优化DFT" class="headerlink" title="FFT优化DFT"></a>FFT优化DFT</h2><p>主要运用<strong>折半引理</strong></p>
+<p>对于$A(x)=\sum\limits_{i=0}^{n-1}a_ix_i$</p>
+<p>构造</p>
+<p>$A<em>0(x) = a_0+a_2x^1+a_4x^2….+a</em>{n-2}x^{n/2-1}$<br>$A<em>1(x) = a_1+a_3x+a_5x^2……+a</em>{n-1}x^{\frac{n}{2}-1}$</p>
+<p>之所以这么构造是因为</p>
+<p>$A(x) = A_0(x^2)+xA_1(x^2)$</p>
+<p>也就是说</p>
+<p>$A(\omega<em>{n}^{k}) = A_0(\omega</em>{n}^{2k})+A<em>1(\omega</em>{n}^{2k}) = A<em>0(\omega</em>{\frac{n}{2}}^{k})+A<em>1(\omega</em>{\frac{n}{2}}^{k})$</p>
+<p>(注意$n$是2的次幂,无边界问题)</p>
+<p>所以我们求单位根在多项式的值只需要求这两个多项式.</p>
+<p>由于平方可以根据折半引理直接分治求出一半.</p>
+<p>对于另一半</p>
+<p>$A(\omega<em>{n}^{k+\frac{n}{2}}) = A_0(\omega_n^{2k+n})+\omega_n^{k+\frac{n}{2}}A_1(\omega</em>{n}^{2k+n}) = A<em>0(\omega_n^{2k})+\omega_n^{k+\frac{n}{2}}A_1(\omega</em>{n}^{2k}) $</p>
+<p>最后一步化简是因为$\omega_{n}^{n} =1$</p>
+<p>在复平面里单位圆依然有一些和实数平面相同的性质(非常平凡的)</p>
+<p>$\omega<em>{n}^{k+\frac{n}{2}} = -\omega</em>{n}^{k}$</p>
+<p>所以上面的表达式为</p>
+<p>$A<em>0(\omega_n^{2k})-\omega</em>{n}^{k}A<em>1(\omega</em>{n}^{2k})$</p>
+<p>这个是可以直接计算的.</p>
+<p>来自Flower_pks的伪代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">int</span> Lim = <span class="number">1</span>, N, M ;</span><br><span class="line"><span class="function">function <span class="title">FFT</span><span class="params">(<span class="keyword">int</span> lenth, <span class="built_in">complex</span> *A, <span class="keyword">int</span> flag)</span></span>&#123;</span><br><span class="line">	IF (Lim == <span class="number">1</span>) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="built_in">complex</span> A0[lenth &gt;&gt; <span class="number">1</span>], A1[lenth &gt;&gt; <span class="number">1</span>] ;<span class="comment">//分成两部分</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j : <span class="number">0</span> to lenth by_grow <span class="number">2</span>) A0[j &gt;&gt; <span class="number">1</span>] = A[j], A1[j &gt;&gt; <span class="number">1</span>] = A[j + <span class="number">1</span>] ;</span><br><span class="line">	FFT(lenth &gt;&gt; <span class="number">1</span>, A0, flag) ;</span><br><span class="line">	FFT(lenth &gt;&gt; <span class="number">1</span>, A1, flag) ;</span><br><span class="line">	<span class="built_in">complex</span> Wn = unit(,) , w = (<span class="number">1</span>, <span class="number">0</span>) ;<span class="comment">//Wn是单位根，w用来枚举幂，即我们令主次单位根不变，由于其余单位根都是其整次幂，所以可以用一个w来记录到第几次幂</span></span><br><span class="line">        <span class="comment">/*此处求单位根的时候会用到我们的参数flag……嗯没错就用这一次，并且flag的值域为(-1, 1)……是的，只会有两个值*/</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i : <span class="number">0</span> to (length &gt;&gt; <span class="number">1</span>) by_grow <span class="number">1</span> with w = w * Wn)&#123;<span class="comment">//length拼错了.....</span></span><br><span class="line">		A[i] = A0[i] + A1[i] * w ;<span class="comment">//应用公式，下同 </span></span><br><span class="line">		A[i + (length &gt;&gt; <span class="number">1</span>)] = A0[i] - A1[i] * w ; <span class="comment">//顺便求出另一半，由折半引理可显然。 </span></span><br><span class="line">	&#125; </span><br><span class="line">&#125; </span><br><span class="line">function Main&#123;</span><br><span class="line">	input(N), input(M) ;</span><br><span class="line">	<span class="keyword">for</span>(i : <span class="number">0</span> to N by_grow <span class="number">1</span>) =&gt; input(A) ;</span><br><span class="line">	<span class="keyword">for</span>(i : <span class="number">0</span> to M by_grow <span class="number">1</span>) =&gt; input(B) ; </span><br><span class="line">	<span class="keyword">while</span>(Lim &lt; N + M) Lim &lt;&lt;= <span class="number">1</span> ;<span class="comment">//Lim为结果多项式的长度（暂时），化为2的幂的便于分治（二分）</span></span><br><span class="line">	FFT(Lim, A, <span class="number">1</span>) ;<span class="comment">//两遍FFT表示从系数化为点值 </span></span><br><span class="line">	FFT(Lim, B, <span class="number">1</span>) ;</span><br><span class="line">	<span class="keyword">for</span>(i : <span class="number">0</span> to Lim by_grow <span class="number">2</span>) =&gt; A[i] *= B[i] ;<span class="comment">//点乘法，此处需要重定义乘号，因为每一项现在表示的是一个点，有x和y两个属性qwq </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>明确那个结构体数组每个元素$A<em>k$表示的就是$A(\omega</em>{n}^{k})$</p>
+<h2 id="FFT优化IDFT"><a href="#FFT优化IDFT" class="headerlink" title="FFT优化IDFT"></a>FFT优化IDFT</h2><p>好像比上面更麻烦一点了.</p>
+<p>先介绍一下范德蒙特矩阵:范德蒙矩阵是一个各列呈现出几何级数关系的矩阵.</p>
+<p>显然有以下关系:</p>
+<script type="math/tex; mode=display">
+\left[
+  \begin{matrix}
+   1 & 1 & 1 &...&1 \\
+   1 & \omega_{n}^{1} & \omega_{n}^{2}&...&\omega_{n}^{n-1} \\
+   1 & \omega_{n}^{2} & \omega_{n}^{4} & ... & \omega_{n}^{2(n-1)} \\
+   .... \\
+   1 & \omega_{n}^{n-1} & \omega_{n}^{2(n-1)} & ...& \omega_{n}^{(n-1)^2}\\
+  \end{matrix} 
+  \right]
+  \left[
+      \begin{matrix}
+      a_0 \\
+      a_1 \\
+      a_2 \\
+      ... \\
+      a_{n-1} \\
+      \end{matrix}
+  \right]　＝　
+
+  \left[
+      \begin{matrix}
+      y_0 \\
+      y_1 \\ 
+      y_2 \\
+      ... \\
+      y_n \\
+      \end{matrix}
+      \right
+  ]</script><p>看样子我们可以矩阵求逆(其实我根本不会)</p>
+<p>$O(n^3)$没有卵用.插值$O(n^2)$也不大行.</p>
+<p>然后有这么一个推论:</p>
+<blockquote>
+<p>$\forall j,k = 0,1,2…n-1 , V<em>{n}’(j,k) = \frac{\omega</em>{n}^{-jk}}{n}$</p>
+</blockquote>
+<p>proof:</p>
+<p>没记错的话矩阵求逆是可以被证明唯一的.</p>
+<p>这意味着充分即必要.</p>
+<p>我们只需要证明$VV’=U$</p>
+<p>$U$是单位矩阵,对角线都是1.</p>
+<p>对于相乘后的矩阵的元素$(i,j)$,其表达式为:</p>
+<p>$\sum\limits<em>{k=0}^{n-1}\frac{\omega</em>{n}^{-ik}}{n}\omega<em>{n}^{kj} = \frac{1}{n}\sum\limits</em>{k=0}^{n-1}\omega_{n}^{k(j-i)}$</p>
+<p>求和引理可知.当且仅当$j=i$的时候为1.</p>
+<p>因此命题成立.</p>
+<p>我们最后看一下DFT和IDFT</p>
+<p>$DFT(\omega<em>{n}^{k}) = \sum\limits</em>{i=0}^{n-1}a<em>i\omega</em>{n}^{ik}$</p>
+<p>$IDFT(y<em>k)=\frac{1}{n}\sum\limits</em>{i=0}^{n-1}y<em>i\omega</em>{n}^{-ik}$</p>
+<p>所以最后IDFT出来的还要除$n$。</p>
+<p>FFT的核心算法已经结束了。</p>
+<p>放一下Flower_pks的伪代码吧，听清楚（虽然变量名有写错的）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FFT</span><span class="params">(<span class="keyword">int</span> Lim,<span class="built_in">complex</span> *A,<span class="keyword">int</span> flag)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Lim == <span class="number">1</span>) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="built_in">complex</span> A0[Lim &gt;&gt; <span class="number">1</span>], A1[Lim &gt;&gt; <span class="number">1</span>] ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= Lim ; i += <span class="number">2</span>)</span><br><span class="line">        A0[i &gt;&gt; <span class="number">1</span>] = A[i], A1[i &gt;&gt; <span class="number">1</span>] = A[i+<span class="number">1</span>] ;</span><br><span class="line">    FFT(Lim &gt;&gt; <span class="number">1</span>, A0, flag) ;</span><br><span class="line">    FFT(Lim &gt;&gt; <span class="number">1</span>, A1, flag) ;</span><br><span class="line">    <span class="built_in">complex</span> unit = (<span class="built_in">complex</span>)&#123;<span class="built_in">cos</span>(<span class="number">2.0</span> * Pi / Lim) , flag * <span class="built_in">sin</span>(<span class="number">2.0</span> * Pi / Lim)&#125;, w = <span class="built_in">complex</span>(<span class="number">1</span>, <span class="number">0</span>) ;<span class="comment">//欧拉公式 </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; (Lim &gt;&gt; <span class="number">1</span>) ; i ++, w = w * unit) &#123;</span><br><span class="line">        A[i] = A0[i] + w * A1[i] ;</span><br><span class="line">        A[i + (Lim&gt;&gt;<span class="number">1</span>)] = A0[i] - w*A1[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">......................</span><br><span class="line">FFT(A, <span class="number">1</span>), FFT(B, <span class="number">1</span>) ;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt;= Lim; i ++) A[i] = A[i] * B[i] ;</span><br><span class="line">FFT(A, <span class="number">-1</span>) ;</span><br><span class="line">......................</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="蝴蝶定理与蝴蝶操作-Butterfly-Theorem-and-operation"><a href="#蝴蝶定理与蝴蝶操作-Butterfly-Theorem-and-operation" class="headerlink" title="蝴蝶定理与蝴蝶操作 Butterfly Theorem and operation"></a>蝴蝶定理与蝴蝶操作 Butterfly Theorem and operation</h2><p>如图</p>
+<p><img src="/images/fft_2.png" alt="img"></p>
+<p>我们可以自底向上进行计算，常数会小很多。</p>
+<ol>
+<li>成对地取出儿子节点，用蝴蝶操作计算出其DFT。</li>
+<li>用这一步的DFT替换之前的；</li>
+<li>直到我们迭代到根节点为止，否则返回step1</li>
+</ol>
+<p>我们得把序列按照叶节点的顺序从左往右排好。</p>
+<p>这个顺序可以打表发现。</p>
+<p>比如原来是001现在是100</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; Lim; i ++ ) R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (L - <span class="number">1</span>)) ;</span><br></pre></td></tr></table></figure>
+<p>真去研究怎么证明没有什么意义。</p>
+<p><strong>我们发现只要我们用迭代的过程模拟出回溯的过程即可。那么思路便有了：三层$for$，先枚举区间长度（1，2，4，8……），第二层枚举区间的起点，第三层遍历区间.</strong></p>
+<p>这次就真的结束了。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>递归版</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 2000005</span></span><br><span class="line"><span class="keyword">int</span> n , m , lim;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">double</span> x,y;</span><br><span class="line">	Complex <span class="keyword">operator</span> + (<span class="keyword">const</span> Complex p)<span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (Complex)&#123;x+p.x,y+p.y&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	Complex <span class="keyword">operator</span> - (<span class="keyword">const</span> Complex p)<span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (Complex)&#123;x - p.x , y - p.y&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	Complex <span class="keyword">operator</span> * (<span class="keyword">const</span> Complex p)<span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (Complex)&#123;x*p.x-y*p.y , y*p.x+x*p.y&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;A[maxn] , B[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FFT</span><span class="params">(<span class="keyword">int</span> ln , Complex* T , <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(ln == <span class="number">1</span>) <span class="keyword">return</span> ;</span><br><span class="line">	Complex F[ln &gt;&gt; <span class="number">1</span>] , G[ln &gt;&gt; <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= ln ; i += <span class="number">2</span>)</span><br><span class="line">		F[i &gt;&gt; <span class="number">1</span>] = T[i] , G[i &gt;&gt; <span class="number">1</span>] = T[i+<span class="number">1</span>];</span><br><span class="line">	FFT(ln &gt;&gt; <span class="number">1</span> , F , op);</span><br><span class="line">	FFT(ln &gt;&gt; <span class="number">1</span> , G , op);</span><br><span class="line">	Complex Wn = (Complex)&#123;<span class="built_in">cos</span>(<span class="number">2.0</span>*pi/ln),<span class="built_in">sin</span>(<span class="number">2.0</span>*pi/ln)*op&#125; , w = (Complex)&#123;<span class="number">1</span>,<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; ln &gt;&gt; <span class="number">1</span> ; ++i , w = w*Wn)</span><br><span class="line">		T[i] = F[i] + G[i]*w , T[i+(ln&gt;&gt;<span class="number">1</span>)] = F[i] - G[i]*w;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= n ; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x) , A[i].x=x;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= m ; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x) , B[i].x=x;</span><br><span class="line">	lim = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(lim &lt;= n + m) lim &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">	FFT(lim , A , <span class="number">1</span>);</span><br><span class="line">	FFT(lim , B , <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= lim ; ++i) A[i] = A[i] * B[i];</span><br><span class="line">	FFT(lim , A , <span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= n + m ; ++i)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,(<span class="keyword">int</span>)(A[i].x / lim + <span class="number">0.5</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（sb luogu竟出锅，这个会输出0？？）</p>
+<p><del>然后附上pks的迭代版参考代码（我明天肯定写.jpg</del></p>
+<p>现在是我的了qwq</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 4000005</span></span><br><span class="line"><span class="keyword">int</span> n , m , lim , L , R[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="built_in">acos</span>(<span class="number">-1.0</span>);</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">double</span> x,y;</span><br><span class="line">	Complex <span class="keyword">operator</span> + (<span class="keyword">const</span> Complex p)<span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (Complex)&#123;x+p.x,y+p.y&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	Complex <span class="keyword">operator</span> - (<span class="keyword">const</span> Complex p)<span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (Complex)&#123;x - p.x , y - p.y&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	Complex <span class="keyword">operator</span> * (<span class="keyword">const</span> Complex p)<span class="keyword">const</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (Complex)&#123;x*p.x-y*p.y , y*p.x+x*p.y&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;A[maxn] , B[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FFT</span><span class="params">(Complex* T , <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lim ; ++i)</span><br><span class="line">	   	<span class="keyword">if</span>(i &lt; R[i]) </span><br><span class="line">			<span class="built_in">std</span>::swap(T[i] , T[R[i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; lim ; i &lt;&lt;= <span class="number">1</span>) <span class="comment">// length</span></span><br><span class="line">	&#123;</span><br><span class="line">		Complex Wn = (Complex)&#123;(<span class="keyword">double</span>)<span class="built_in">cos</span>(pi / i) , (<span class="keyword">double</span>)op * <span class="built_in">sin</span>(pi / i)&#125;;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; lim ; j += (i &lt;&lt; <span class="number">1</span>)) <span class="comment">// beginning</span></span><br><span class="line">		&#123;</span><br><span class="line">			Complex w = (Complex)&#123;<span class="number">1</span> , <span class="number">0</span>&#125;;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">0</span> ; l &lt; i ; ++l , w = w * Wn)</span><br><span class="line">			&#123;</span><br><span class="line">				Complex x = T[j + l] , y = w * T[j + i + l];</span><br><span class="line">				T[j + l] = x + y , T[j + i + l] = x - y;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= n ; ++i) <span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;A[i].x) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= m ; ++i) <span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;B[i].x) ;</span><br><span class="line">	lim = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(lim &lt;= n + m) lim &lt;&lt;= <span class="number">1</span> , ++L;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lim ; ++i) </span><br><span class="line">		R[i] = (R[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (L - <span class="number">1</span>));</span><br><span class="line">	FFT(A , <span class="number">1</span>);</span><br><span class="line">	FFT(B , <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= lim ; ++i) A[i] = A[i] * B[i];</span><br><span class="line">	FFT(A , <span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= n + m ; ++i)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,(<span class="keyword">int</span>)(A[i].x / lim + <span class="number">0.5</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意迭代版是$(cos(Pi / j), flag * sin(Pi / j))$，因为这里的$J$是中点。。。</p>
+<p>迭代版虽然并没有什么难一点的原理，但我感觉如果不用要不了多久就忘了，画一画迭代树可以重新退出来？</p>
+<hr>
+<h1 id="多项式之NTT与任意模数NTT"><a href="#多项式之NTT与任意模数NTT" class="headerlink" title="多项式之NTT与任意模数NTT"></a>多项式之NTT与任意模数NTT</h1><h2 id="preface"><a href="#preface" class="headerlink" title="preface"></a>preface</h2><p><del>很大一部分学习自Flower_pks（看不懂的）</del></p>
+<p><del>参考了成爷但又想再参考点别的</del></p>
+<p>安利<a href="https://www.cnblogs.com/rvalue/p/10120174.html#%E7%82%B8%E7%B2%BE%E7%8E%B0%E5%9C%BA%E4%B8%8E-ntt" target="_blank" rel="noopener">rvalue</a><del>(实际上粘过来的时候我还没读)</del></p>
+<p>读了，感觉极其良好。</p>
+<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><p>定义:</p>
+<p>对于两个正数 $(a,m)=1$ , $\exists d$  $a^d ≡ 1 (\mod m)$</p>
+<p>由此定义$a$对模$m$的指数$\delta m(a) $,为使$a^d ≡ 1$的最小的$d$.由上可知$d_{max}  = \varphi(m)$.</p>
+<p>我们把使得$\delta m(a) = \varphi(m)$的$a$称为是$m$的原根.</p>
+<p>$G$是模数$P$的原根满足</p>
+<p>$G^{p-1}\mod p = 1$<br>$\forall k , j \in [0,\varphi(p)) , G^{j} \neq G^{k} (k \neq j)$</p>
+<p>为什么关于为什么在$[0,\delta(p))$下互不相同，大概可以反证一下：</p>
+<blockquote>
+<p>首先可以肯定的是原根次幂在模意义下具有循环节（广义欧拉定理保证任意数都成立（但是不会证明)），我们设最小的使$G^{r} \equiv 1 \mod p$的$r$为$\delta(p)$ , 因为$G$是原根，所以$\delta(p) = \varphi(p)$ . 设$a ,b \in [0,\delta(p))$ , 如果$G^a \equiv G^b (\mod p~) , a &lt; b$ , 则必有$G^{b-a} \equiv 1 \mod p$  ， 因此导致矛盾..</p>
+</blockquote>
+<p>模数$P$有原根的等价条件是$P=2,4,p^n,2p^n.p \in prime \and p \neq 2$</p>
+<p>但是我们在使用正常NTT的时候只会使用费马素数，也就是第三种$n=1 , p = a2^k + 1$</p>
+<p>具体为什么可以看下面。<del>如果没看懂就再看一遍</del></p>
+<p>关于如何求原根,可能只能暴力枚举..一般记住$99244353$的原根是$3$</p>
+<p>我们可以把$G^{k}$与$\omega_{n}^{k}$对比一下，前者在模意义下和后者都满足互不相同。</p>
+<h2 id="回顾FFT"><a href="#回顾FFT" class="headerlink" title="回顾FFT"></a>回顾FFT</h2><p>我们思考一下FFT如何实现快速变换的。</p>
+<ol>
+<li>$\omega_{n}^{k} , k \in [0,n-1]$互不相同</li>
+<li>$\{(\omega<em>{n}^{k})^2\} = \{(\omega</em>{\frac{n}{2}}^{k})^2\}$ , 通过构造关于$x^2$的多项式即可进行分治计算，并且迅速求出另一半。</li>
+<li>$\sum<em>{k=1}^{n-1}(\omega</em>{n}^{j-i})^k = \begin{cases} 0 ~(i \neq j) \\ n ~(i = j) \\ \end{cases}$可以使用相同复杂度的算法进行IDFT</li>
+</ol>
+<p>回顾到此完毕。</p>
+<h2 id="数论变换NTT"><a href="#数论变换NTT" class="headerlink" title="数论变换NTT"></a>数论变换NTT</h2><p>看Flower_pks的好像并没有看懂（符号貌似有些混乱），然后看了看challestand看懂了。</p>
+<p><del>然后看了看发现也没有看懂</del> …</p>
+<p><del>其实我会只是想copy一下，既然这样我还是自己写吧</del></p>
+<p>设模数是$p = a2^k+1$</p>
+<p>这个模数$p$必须保证$p-1$的约数个数大于你想要NTT的多项式长度。后面会说明。</p>
+<p>发现我蠢了一下。</p>
+<p>我们设$g_n = G^{\frac{p-1}{n}}$</p>
+<p>这里肯定保证$n | (p-1)$</p>
+<p>对于消去引理</p>
+<p>$g_{dn}^{dk} = G^{\frac{dk(p-1)}{dn}} = G^{\frac{k(p-1)}{n}} = g_n^k$</p>
+<p>证明完毕。</p>
+<p>对于折半引理</p>
+<p>首先我们发现$\frac{p-1}{n}=a$</p>
+<p>所以我们先证明</p>
+<p>$(n-1)a \leq p-2$</p>
+<p><strong>这样保证我们取的值均不相同。</strong></p>
+<p>把$a = \frac{p-1}{n}$带入即可。</p>
+<p>接下来我们就可以证明折半引理了</p>
+<p><strong>我们应该证明</strong></p>
+<p>$g<em>{n}^{k + \frac{n}{2}} \equiv -g</em>{n}^{k}(\mod p~)$</p>
+<p>这个就等价于</p>
+<p>$g_{n}^{\frac n2} \equiv -1\mod p$</p>
+<p>对$g_{n}^{n} \equiv 1 \mod p$开方困扰了我很久。</p>
+<p>按理说普通模数应该是有好几个根的，但是这里我们模的是一个质数。</p>
+<p>$(g<em>{n}^{\frac n2})^2 \equiv 1 \mod p \Longleftrightarrow (g</em>{n}^{\frac n2} + 1)(g_{n}^{\frac n2}-1) \equiv 0 \mod p$</p>
+<p>$\Longrightarrow p ~| ~(g<em>{n}^{\frac n2} + 1)(g</em>{n}^{\frac n2}-1) \Longrightarrow g_{n}^{\frac n2} = \pm 1$</p>
+<p>这样我们就完成了折半引理的证明。</p>
+<p>到这里我们发现与单位根在复平面上均匀取点很相似，原根也在一个对称环上取值，</p>
+<p>最后是我们为了保证可以用相同的方式进行逆运算还原，证明求和引理。</p>
+<p>$\sum<em>{i=0}^{n-1}(g</em>{n}^{k})^j = \frac{g_{n}^{nk}-1}{g_n^k-1}$</p>
+<p>同样当且仅当$k=n$上述等于$n$.</p>
+<p>算法其他部分可以发现和FFT完全相同，<strong>包括构造两个多项式使得</strong></p>
+<p>$A(x) = A_0(x^2) + xA_1(x^2)$</p>
+<p>这也是算法的核心部分。</p>
+<p>最后我们来写一下NTT和INTT的式子，只需要把DFT和IDFT的单位根$\omega_n^k$根据上述性质替换成$g_n^k$即可</p>
+<p>$DFT(g<em>n^k)=\sum\limits</em>{i=0}^{n-1}a_ig_n^{ik}$</p>
+<p>$IDFT(y<em>k) = \frac 1n\sum\limits</em>{i=0}^{k}y_kg_n^{-ik}$</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>重复一下</p>
+<p>整个NTT原理我们一共证明了4条和FFT类似的性质：</p>
+<ol>
+<li>对于<strong>消去引理</strong></li>
+</ol>
+<p>$g_{dn}^{dk} = G^{\frac{dk(p-1)}{dn}} = G^{\frac{k(p-1)}{n}} = g_n^k$</p>
+<ol>
+<li><strong>值的互不相同</strong><br> $\frac{p-1}{n}=a$<br> $(n-1)a \leq p-2$</li>
+</ol>
+<p>这样保证我们取的值均不相同。</p>
+<p>把$a = \frac{p-1}{n}$带入即可使用放缩证明。</p>
+<ol>
+<li><strong>折半引理</strong>（用于分治过程）</li>
+</ol>
+<p>$(g<em>{n}^{\frac n2})^2 \equiv 1 \mod p \Longleftrightarrow (g</em>{n}^{\frac n2} + 1)(g_{n}^{\frac n2}-1) \equiv 0 \mod p$</p>
+<p>$\Longrightarrow p ~| ~(g<em>{n}^{\frac n2} + 1)(g</em>{n}^{\frac n2}-1) \Longrightarrow g_{n}^{\frac n2} = \pm 1$</p>
+<ol>
+<li><strong>求和引理</strong>（用于逆运算）</li>
+</ol>
+<p>$\sum<em>{i=0}^{n-1}(g</em>{n}^{k})^j = \frac{g_{n}^{nk}-1}{g_n^k-1}$<br>同样当且仅当$k=n$上述等于$n$.其他情况下均为0<br>因为这条和FFT相同的性质，范德蒙特矩阵的证明在这里依然成立。</p>
+<p><del>好像把前面内容都复制了一遍。</del></p>
+<p>上述所有推导的除法均需要在模意义下进行，NTT算法保证精度。</p>
+<p><del>突然懒得写，就找了个看上去不错的，反正就是一个替换。。</del></p>
+<p>不存在的不到20分钟就写完了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 4000005</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span> , G = <span class="number">3</span> , Gi = <span class="number">332748118</span>;</span><br><span class="line"><span class="keyword">int</span> rev[maxn] , A[maxn] , B[maxn] , invN , n , m , lim;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">1</span> , base = x;</span><br><span class="line">	<span class="keyword">for</span>(  ; y ; y &gt;&gt;= <span class="number">1</span> , base = <span class="number">1l</span>l * base * base % mod)</span><br><span class="line">		<span class="keyword">if</span>(y &amp; <span class="number">1</span>)</span><br><span class="line">			ans = <span class="number">1l</span>l * ans * base % mod;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span>* T , <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= lim ; ++i)</span><br><span class="line">		<span class="keyword">if</span>(i &lt; rev[i]) <span class="built_in">std</span>::swap(T[i] , T[rev[i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span> ; k &lt; lim ; k &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> Gn = <span class="built_in">pow</span>(op ? G : Gi , (mod - <span class="number">1</span>) / (k &lt;&lt; <span class="number">1</span>));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; lim ; j += (k &lt;&lt; <span class="number">1</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> Gk = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">0</span> ; l &lt; k ; ++l , Gk = <span class="number">1l</span>l * Gk * Gn % mod)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> nx = T[j + l] , ny = <span class="number">1l</span>l * T[j + l + k] * Gk % mod;</span><br><span class="line">				(T[j + l] = nx + ny) %= mod , (T[j + l + k] = nx - ny + mod) %= mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inv</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x == <span class="number">1</span> ? x : <span class="number">1l</span>l * (mod - mod / x) * inv(mod % x) % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= n ; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;A[i]);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= m ; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;B[i]);</span><br><span class="line">	lim = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(lim &lt;= n + m) lim &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= lim ; ++i) rev[i] = (rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) * (lim &gt;&gt; <span class="number">1</span>));</span><br><span class="line">	NTT(A , <span class="number">1</span>) , NTT(B , <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= lim ; ++i) A[i] = <span class="number">1l</span>l * A[i] * B[i] % mod;</span><br><span class="line">	NTT(A , <span class="number">0</span>); invN = inv(lim);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= n + m ; ++i) <span class="built_in">printf</span>(<span class="string">"%d "</span>,<span class="number">1l</span>l * A[i] * invN % mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="多项式求逆"><a href="#多项式求逆" class="headerlink" title="多项式求逆"></a>多项式求逆</h1><h2 id="preface-1"><a href="#preface-1" class="headerlink" title="preface"></a>preface</h2><p>大概是一个比较重要的算法了。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定多项式$F(x)$</p>
+<p>求出$G(x)$使得$F(x)G(x) \equiv 1 \mod p$</p>
+<p>$ p=998244353$</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h3><p>都会。</p>
+<h3 id="NTT优化卷积乘法"><a href="#NTT优化卷积乘法" class="headerlink" title="NTT优化卷积乘法"></a>NTT优化卷积乘法</h3><p>都会</p>
+<h2 id="正式"><a href="#正式" class="headerlink" title="正式"></a>正式</h2><p>多项式求逆，顾名思义就是求一个多项式的逆元。</p>
+<p>求逆这个概念很广泛，任何有单位元的东西大都存在逆.</p>
+<p>比如矩阵，模意义，或者群。</p>
+<p>我们先看看多项式求逆的暴力算法。</p>
+<p>假设$F(x) = \sum<em>\limits{i=0}^{n-1}a_ix^i$ , $G(x)=\sum\limits</em>{i=0}^{n-1}b_ix^i$</p>
+<p>假设模$x^n$</p>
+<p>我们有方程组！</p>
+<p>$\begin{cases}  a<em>0b_0=1 \\ a_1b_0+a_0b_1=0\\ …\\ \sum\limits</em>{i=0}^{n-1}a<em>ib</em>{n-i} = 0\end{cases}$</p>
+<p>如果暴力求解的话时间复杂度是$O(n^2)$</p>
+<p>只需要从第一个开始解并不断代入即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">b0 ← <span class="number">1</span> / a0</span><br><span class="line"><span class="keyword">for</span> i ← <span class="number">1</span> to m - <span class="number">1</span></span><br><span class="line">	bi ← <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> j ← <span class="number">0</span> to i - <span class="number">1</span></span><br><span class="line">		bi ← bi - bj * ai - j</span><br><span class="line">	bi ← bi / a0</span><br></pre></td></tr></table></figure>
+<p>可以得到一个结论：<strong>一个多项式有逆元当且仅当它的常数项存在逆元，且一个多项式的逆元是唯一的</strong>。</p>
+<h2 id="倍增-NTT优化"><a href="#倍增-NTT优化" class="headerlink" title="倍增+NTT优化"></a>倍增+NTT优化</h2><p>如何优化这个过程呢？</p>
+<p>如果我们知道此时，我们可以抛开模意义去谈这件事情了。如果一个无穷级数是一个多项式的逆，则它的系数就被无穷多个方程组成的方程组约束。前面也看到过，如果模的是$x^k$，那它就会有$k$个方程去约束它。</p>
+<p>我们能不能快速由$[b<em>0….b</em>{k-1}]$得到$[b<em>0…b</em>{2k-1}]$呢？（这里不是$b_{2k-2}$应该是实现上的原因吧。。）</p>
+<p>推导后可以使用倍增。</p>
+<p>假设当前模$x^k$ , 这个$k-1$项的多项式是$g_k(x)$</p>
+<p>有$f(x)g_k(x) \equiv 1 \mod x^k$</p>
+<p>显然$g_{2k}(x) \equiv g_k(x) \mod x^k$</p>
+<p>$(g<em>{2k}(x) - g</em>{k}(x)) \equiv 0 \mod x^k$</p>
+<p>因为是同余0，很容易发现模数和左边可以同时平方（其它情况应该并不可以）</p>
+<p>$g<em>{2k}^2(x) + g</em>{k}^2(x)-2g_{2k}(x)g_k(x) \equiv 0 \mod x^{2k}$</p>
+<p><strong>此时我们同时乘上$f(x)$ , 根据定义$g_{2k}(x)f(x) \equiv 0 \mod x^{2k}$</strong></p>
+<p>$g<em>{2k}(x) + g</em>{k}^2(x)f(x) - 2g_{k}(x) \equiv 0 \mod x^{2k}$</p>
+<p>移项可得</p>
+<p>$g_{2k}(x) \equiv g_k(x)[2-g_k(x)f(x)] \mod x^{2k}$</p>
+<p>上面的通过两次$O(nlogn)$多项式乘法即可完成。</p>
+<p>总的时间复杂度</p>
+<p>$T(n) = T(\frac n2)+O(nlogn)$</p>
+<p>求一下和就是$T(n) = O(nlogn)$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 500005</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span> , G = <span class="number">3</span> , Gi = <span class="number">332748118</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[maxn] , g[maxn] , t[maxn] , n , rev[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">1</span> , base = x;</span><br><span class="line">	<span class="keyword">for</span>( ; y ; y &gt;&gt;= <span class="number">1</span> , base = <span class="number">1l</span>l * base * base % mod)</span><br><span class="line">		<span class="keyword">if</span>(y &amp; <span class="number">1</span>)</span><br><span class="line">			ans = <span class="number">1l</span>l * ans * base % mod;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span>* f , <span class="keyword">int</span> lim , <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lim ; ++i)</span><br><span class="line">		rev[i] = (rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | (i &amp; <span class="number">1</span>) * (lim &gt;&gt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lim ; ++i)</span><br><span class="line">		<span class="keyword">if</span>(i &lt; rev[i])	<span class="built_in">std</span>::swap(f[i] , f[rev[i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span> ; k &lt; lim ; k &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> Gn = <span class="built_in">pow</span>(op ? G : Gi , (mod - <span class="number">1</span>) / (k &lt;&lt; <span class="number">1</span>));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; lim ; j += (k &lt;&lt; <span class="number">1</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> Gk = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">0</span> ; l &lt; k ; ++l , Gk = <span class="number">1l</span>l * Gk * Gn % mod)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> nx = f[j + l] , ny = <span class="number">1l</span>l * f[j + l + k] * Gk % mod;</span><br><span class="line">				f[j + l] = (nx + ny) % mod , f[j + l + k] = (((nx - ny) % mod) + mod) % mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inv</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x == <span class="number">1</span> ? x : <span class="number">1l</span>l * (mod - mod / x) * inv(mod % x) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">InvPoly</span><span class="params">(<span class="keyword">int</span>* f , <span class="keyword">int</span>* g , <span class="keyword">int</span> ln)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	g[<span class="number">0</span>] = inv(f[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> , j = <span class="number">4</span> ; i &lt; ln ; i &lt;&lt;= <span class="number">1</span> , j &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> iv = inv(j);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; (i &lt;&lt; <span class="number">1</span>) ; ++k)</span><br><span class="line">			t[k] = f[k];</span><br><span class="line">		NTT(t , j , <span class="number">1</span>) , NTT(g , j , <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; j ; ++k)</span><br><span class="line">			g[k] = (<span class="number">2</span> - <span class="number">1l</span>l * t[k] * g[k] % mod) * g[k] % mod;</span><br><span class="line">		NTT(g , j , <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; j ; ++k) g[k] = <span class="number">1l</span>l * g[k] * iv % mod; <span class="comment">// Important!!!!!</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = i &lt;&lt; <span class="number">1</span> ; k &lt; j ; ++k)</span><br><span class="line">			g[k] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; j ; ++k)</span><br><span class="line">			t[k] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;f[i]);</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">1</span> ; <span class="keyword">for</span>( ; x &lt; n ; x &lt;&lt;= <span class="number">1</span>);</span><br><span class="line">	InvPoly(f , g , x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; ++i)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,(g[i] + mod) % mod);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>接下来我们推一推常用的分治FFT如何使用多项式求逆来解决</p>
+<hr>
+<h1 id="分治FFT"><a href="#分治FFT" class="headerlink" title="分治FFT"></a>分治FFT</h1><p>给定序列$g[1….n-1]$</p>
+<p>设$f_0=1$</p>
+<p>$f<em>i = \sum</em>{i=1}^{i}f_{i-j}g_j$</p>
+<p>求出每个$f_i , i \in [1,n-1]$</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>由于前面的项必须先算出来才能算后面的,所以不能直接FFT优化.</p>
+<p>其实想到了基于计算时间的分治了,但是我居然没看出这个卷积形式该怎么用FFT……</p>
+<p>原式在不考虑顺序的情况下就相当于$f_{i+j}=\sum f_ig_j$</p>
+<p>在分治的时候我们会先递归左边然后考虑左边对右边的贡献.</p>
+<p>注意一个事情，我就是因为这个才没写对….</p>
+<p>对于递归完左边在当前区间算卷积对区间$f<em>{[mid,r)}$应该是$f</em>{[l,mid)} * g_{[1,r-l]}$ ， $f$和$g$的区间显然是不一样的……</p>
+<p>所以分治中的卷积就是NTT了，算完之后只需要把右边那一部分$[mid,r)$加到答案里就可以了。</p>
+<p>区间开闭还是不确定，所以必须写一写…..</p>
+<p>时间复杂度$O(nlog^2n)$（听说多项式求逆可以做到$O(nlogn)$）</p>
+<p>代码弃了，边界极其难调（上面的分析我很良心的写对了）而且被多项式求逆吊起来打。多项式求逆启动……</p>
+<p>设$F(x) = \sum\limits_{i=0}^{n-1}a_ix^i$</p>
+<p>$G(x) = \sum\limits_{i=0}^{n-1}b_ix^i$</p>
+<p>$F$卷积$G$会平移一项，由于是无穷级数就变成了向前平移一项。</p>
+<p>体会了一下这种通过生成函数转多项式求逆的方法的核心:利用题目给定的关系构造可以替换的多项式….至于怎么想出来就很难说了……</p>
+<p>这两个多项式我们进行卷积，发现后面可以替换！</p>
+<p>我们可以假定$g_0=0$，这并不会影响正确性。</p>
+<p>$F(x)G(x) = \sum\limits<em>{i=1}^{\infty}x^i\sum\limits</em>{j=0}^{i-1}f<em>jg</em>{i-j}=\sum\limits<em>{i=1}^{\infty}f</em>{i+1}x^i = F(x) - f_0x^0$</p>
+<p>剩下的就好办了。移项即可。</p>
+<p>$F(x) = \frac{f_0}{1-G(x)} = (1-G(x))^{-1}$</p>
+<p>然后我们只需要最高$n-1$次项的系数，所以在$\mod x^n$下求逆即可(不然也求不出来)</p>
+<p>多项式求逆即可。</p>
+<p>我去找了几本书看了下，发现似乎并没有很好的关于这方面的，好像数学女孩不错，强烈安利买一套（第三本离散数学太枯燥了点）。</p>
+<p><del>感觉数学竞赛来了肯定爆切。</del></p>
+<p>刚写完多项式求逆的我怎么会咕咕咕呢？<br>Code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 500005</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span> , G = <span class="number">3</span> , Gi = <span class="number">332748118</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[maxn] , g[maxn] , t[maxn] , n , rev[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> x , <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">1</span> , base = x;</span><br><span class="line">	<span class="keyword">for</span>( ; y ; y &gt;&gt;= <span class="number">1</span> , base = <span class="number">1l</span>l * base * base % mod)</span><br><span class="line">		<span class="keyword">if</span>(y &amp; <span class="number">1</span>)</span><br><span class="line">			ans = <span class="number">1l</span>l * ans * base % mod;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span>* f , <span class="keyword">int</span> lim , <span class="keyword">int</span> op)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lim ; ++i)</span><br><span class="line">		rev[i] = (rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | (i &amp; <span class="number">1</span>) * (lim &gt;&gt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; lim ; ++i)</span><br><span class="line">		<span class="keyword">if</span>(i &lt; rev[i])	<span class="built_in">std</span>::swap(f[i] , f[rev[i);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span> ; k &lt; lim ; k &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> Gn = <span class="built_in">pow</span>(op ? G : Gi , (mod - <span class="number">1</span>) / (k &lt;&lt; <span class="number">1</span>));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; lim ; j += (k &lt;&lt; <span class="number">1</span>))</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> Gk = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">0</span> ; l &lt; k ; ++l , Gk = <span class="number">1l</span>l * Gk * Gn % mod)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">int</span> nx = f[j + l] , ny = <span class="number">1l</span>l * f[j + l + k] * Gk % mod;</span><br><span class="line">				f[j + l] = (nx + ny) % mod , f[j + l + k] = (((nx - ny) % mod) + mod) % mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inv</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x == <span class="number">1</span> ? x : <span class="number">1l</span>l * (mod - mod / x) * inv(mod % x) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">InvPoly</span><span class="params">(<span class="keyword">int</span>* f , <span class="keyword">int</span>* g , <span class="keyword">int</span> ln)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	g[<span class="number">0</span>] = inv(f[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> , j = <span class="number">4</span> ; i &lt; ln ; i &lt;&lt;= <span class="number">1</span> , j &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> iv = inv(j);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; (i &lt;&lt; <span class="number">1</span>) ; ++k)</span><br><span class="line">			t[k] = f[k];</span><br><span class="line">		NTT(t , j , <span class="number">1</span>) , NTT(g , j , <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; j ; ++k)</span><br><span class="line">			g[k] = (<span class="number">2</span> - <span class="number">1l</span>l * t[k] * g[k] % mod) * g[k] % mod;</span><br><span class="line">		NTT(g , j , <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; j ; ++k) g[k] = <span class="number">1l</span>l * g[k] * iv % mod; <span class="comment">// Important!!!!!</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = i &lt;&lt; <span class="number">1</span> ; k &lt; j ; ++k)</span><br><span class="line">			g[k] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span> ; k &lt; j ; ++k)</span><br><span class="line">			t[k] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; n ; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;f[i]) , f[i] = -f[i];</span><br><span class="line">	f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> x = <span class="number">1</span> ; <span class="keyword">for</span>( ; x &lt; n ; x &lt;&lt;= <span class="number">1</span>);</span><br><span class="line">	InvPoly(f , g , x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; ++i)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,(g[i] + mod) % mod);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>接下来的内容都比较有难度了！</p>
+<h1 id="Taylor展开"><a href="#Taylor展开" class="headerlink" title="Taylor展开"></a>Taylor展开</h1><p>泰勒多项式展开的项数越多，曲线拟合的越好。 </p>
+<p>在数学中，泰勒公式是一个用函数在某点的信息描述其附近取值的公式。这个公式来自于微积分的泰勒定理，泰勒定理描述了一个可微函数，如果函数足够光滑的话，在已知函数在某一点的各阶导数值的情况之下，泰勒公式可以用这些导数值做系数构建一个多项式来近似函数在这一点的邻域中的值，这个多项式称为泰勒多项式。泰勒公式还给出了余项即这个多项式和实际的函数值之间的偏差。泰勒公式得名于英国数学家布鲁克·泰勒。他在1712年的一封信里首次叙述了这个公式，尽管1671年詹姆斯·格雷高里已经发现了它的特例。 拉格朗日在1797年之前，最先提出了带有余项的现在形式的泰勒定理。</p>
+<h2 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h2><p>泰勒公式的初衷是用多项式来近似表示函数在某点周围的情况。比如说，指数函数$e^x$在$x = 0$的附近可以用以下多项式来近似地表示：<br>:$ \textrm{e}^x \approx 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots + \frac{x^n }{n!}.$</p>
+<p>称为指数函数在0处的$n$阶泰勒展开公式。这个公式只对$0$附近的$x$有用，$x$离$0$越远，这个公式就越不准确。实际函数值和多项式的偏差称为泰勒公式的余项。<br>:$R_n(x) = \textrm{e}^x - \left(1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots + \frac{x^n}{n!}\right).$</p>
+<h2 id="泰勒定理"><a href="#泰勒定理" class="headerlink" title="泰勒定理"></a>泰勒定理</h2><p>对于一般的函数，泰勒公式的系数的选择依赖于函数在一点的各阶导数值。这个想法的原由可以由微分的定义开始。微分是函数在一点附近的最佳线性近似：<br>: $f(a + h) = f(a) + f^{\prime}(a)h + o(h)$，其中$o(h)$ 是比h 高阶的无穷小。<br>也就是说$f(a + h) \approx f(a) + f^{\prime}(a)h $，或$f(x) \approx f(a) + f ^{\prime}(a)(x - a) $。</p>
+<p>注意到$f(x)$ 和$f(a)+f^{\prime}(a)(x - a)$ 在a 处的零阶导数和一阶导数都相同。对足够光滑的函数，如果一个多项式在a 处的前n 次导数值都与函数在a 处的前n 次导数值重合，那么这个多项式应该能很好地近似描述函数在a 附近的情况。以下定理说明这是正确的：</p>
+<blockquote>
+<p>设 n 是一个正整数。如果定义在一个包含a 的区间上的函数f 在a 点处n+1 次可导，那么对于这个区间上的任意x，都有：<br>$ f(x) = f(a) + \frac{f(a)}{1!}(x - a) + \frac{f^ {(2)}(a)}{2!}(x - a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x - a)^n + R_n(x). $</p>
+</blockquote>
+<p>其中的多项式称为函数在a 处的泰勒展开式，剩余的$R_n(x)$ 是泰勒公式的余项，是$(x - a)^n$ 的高阶无穷小。</p>
+<p>$R_n(x)$ 的表达形式有若干种，分别以不同的数学家命名。</p>
+<p>带有皮亚诺型余项的泰勒公式说明了多项式和函数的接近程度：<br>$ f(x) = f(a) + \frac{f(a)}{1!}(x - a) + \frac{f^ {(2)}(a)}{2!}(x - a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x - a)^n + o[(x - a)^{n}] $<br>也就是说，当x 无限趋近$a$ 时，余项$R_n(x)$ 将会是$(x - a)^{n}$ 的高阶无穷小，或者说多项式和函数的误差将远小于$(x - a)^{n}$。这个结论可以由下面更强的结论推出。</p>
+<p>带有拉格朗日型余项的泰勒公式可以视为拉格朗日微分中值定理的推广：<br>$ f(x) = f(a) + \frac{f(a)}{1!}(x - a) + \frac{f^ {(2)}(a)}{2!}(x - a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x - a)^n + \frac{ f^{(n+1)}(\theta) }{(n + 1)!}(x - a)^{(n+1)} $</p>
+<p>即$R_n(x) = \frac{ f^{(n+1)}(\theta) }{(n + 1)!}(x - a)^{(n+1)}$，其中$\theta \in (a, x)$</p>
+<p>带有积分型余项的泰勒公式可以看做微积分基本定理的推广<br>$ R_n(x) = \int_a^x \frac{f^{(n+1)} (t)}{n!} (x - t)^n \, dt,$</p>
+<h2 id="余项估计"><a href="#余项估计" class="headerlink" title="余项估计"></a>余项估计</h2><p>拉格朗日型余项或积分型余项可以帮助估计泰勒展开式和函数在一定区间之内的误差。设函数在区间$[a-r,a+r]$ 上$n$ 次连续可微并且在区间$(a-r,a+r)$ 上$n+1$ 次可导。如果存在正实数$M_n$ 使得区间$(a-r,a+r)$里的任意$x$都有$|f^{(n+1)}(x)| \le M_n$，那么：</p>
+<p>$ f(x) = f(a) + \frac{f(a)}{1!}(x - a) + \frac{f^ {(2)}(a)}{2!}(x - a)^2 + \cdots + \frac{f^{(n)}(a)}{n!}(x - a)^n + R_n(x),$</p>
+<p>其中$|R_n(x)| \le M_n \frac{r^{n+1}}{(n+1)!}$。这个上界估计对区间$(a-r,a+r)$里的任意$x$ 都成立，是一个一致估计。</p>
+<p>如果当$n$趋向于无穷大时，还有$M_n \frac{r^{n+1}}{(n+1)!} \rightarrow 0$，那么可以推出$R_n(x) \rightarrow 0$，$f$ 是区间$(a-r,a+r)$上解析函数（局部上的幂级数近似）。$f$ 在区间$(a-r,a+r)$ 上任一点的值都等于在这一点的泰勒展开式的极限。</p>
+<h2 id="多元泰勒公式"><a href="#多元泰勒公式" class="headerlink" title="多元泰勒公式"></a>多元泰勒公式</h2><p>对于多元函数，也有类似的泰勒公式。设$B(a, r )$是欧几里得空间$R^N$中的开集|开球，$ƒ $是定义在$B(a, r ) $的闭包上的实值函数，并在每一点都存在所有的$n+1 $次偏导数。这时的泰勒公式为：<br>:对所有$x\in \mathbf{B}(a, r)$，<br>:$f(x)=\sum<em>{|\alpha|=0}^n\frac{1}{\alpha!}\frac{\partial^\alpha f(a)}{\partial x^\ alpha}(xa)^\alpha+\sum</em>{|\alpha|=n+1}R_{\alpha}(x)(xa)^\alpha$</p>
+<p>:其中的$ \alpha $ 是多重指标，即$ |\alpha |=\alpha _1+\alpha _2+…+\alpha _n $ , $ \alpha !=\alpha _1!\cdot\alpha _2!\cdot…\cdot\alpha _n! $ 。<br>:若$ x=(x_1,x_2,…,x_n) $ ,则记<br>:$ x^{\alpha }=x_1^{\alpha _1}x_2^{\alpha _2}…x_n^{\alpha _n} $.<br>:$ \frac{\partial^\alpha f(a)}{\partial x^\alpha}=\frac{\partial ^{\alpha _1+\alpha _2+…+\alpha _n}f(a )}{\partial x_1^{\alpha _1}x_2^{\alpha _2}…x_n^{\alpha _n}} $.</p>
+<p>其中的余项也满足不等式：<br>:对所有满足$\alpha = n+1 $的&alpha;，$|R<em>{\alpha}(x)|\le\sup</em>{y\in\bar{B} }\left|\frac{1}{\alpha!}\frac{\partial^\alpha f(y)}{\partial x^\alpha}\right|$</p>
+<p>特别地，多元形式的泰勒公式可表示为：<br>:$ f(a +h)=\sum<em>{k=0}^{m}\sum</em>{|\alpha |=k}\frac{\partial^\alpha f(a)}{\partial x^ \alpha}h^{\alpha }+R<em>m $<br>:其中$ R_m=\sum</em>{|\alpha |=m+1}\frac{\partial ^{\alpha }f(a +\theta h)}{\alpha !}h^{\alpha }$<br>在应用上述公式时，特别重要的是展开式的前三项，即：<br>:$ f(a +h)=f(a )+\frac{\partial f}{\partial x<em>1}(a )h_1+…+\frac{\partial f}{\partial x_n}(a )h_n+\frac{1}{2}\sum</em>{i,j=1}^{n}\frac{\partial ^{2}f}{\partial x_i\partial x_j}(a )+…$<br>:运用雅可比矩阵与海森矩阵，则上式可表示为：<br>:$ f(a +h)=f(a )+Jf(a )h+\frac{1}{2}(h_1,…h_n)Hf(a )<br>\begin{pmatrix}<br>h_1\\<br>…\\<br>h_n\\<br>\end{pmatrix}+… $<br>:其中$ Jf(a ) $ 为雅可比矩阵，$ Hf(a) $ 为海森矩阵.</p>
+<hr>
+<h1 id="多项式除法"><a href="#多项式除法" class="headerlink" title="多项式除法"></a>多项式除法</h1><p>给定$n$次多项式$F(x)$和$m$次多项式$G(x)$.求一个$n-m$次多项式$Q(x)$和一个小于$m$次的多项式$R(x)$<br>使得</p>
+<p>$F(x) \equiv G(x)Q(x) + R(x) \mod 998244353$</p>
+<p>这个问题的构造还是很巧妙的。</p>
+<p>设$A_R(x) = x^nA(\frac 1x)$</p>
+<p>发现系数正好倒过来。。。</p>
+<p>$F(\frac 1x) = G(\frac 1x)Q(\frac 1x) + R(\frac 1x)$<br>$x^nF(\frac 1x) = x^{n-m}Q(\frac 1x)x^mG(x) + x^{n-m+1}x^{m-1}R(\frac 1x)$<br>$F_R(x) = Q_R(x)G_R(x)+x^{n-m+1}R_R(x)$</p>
+<p>这时如果我们模一下$x^{n-m+1}$</p>
+<p>$Q_R(x) = F_R(x)G_R^{-1}(x) \mod x^{n-m+1}$</p>
+<p>多项式求逆即可。</p>
+<p>求出$Q$后只需要一个减法就可以求出$R$。<br>最后时间复杂度是$O(nlogn)$</p>
+<p>代码咕一会。</p>
+<p><a href="http://vfleaking.blog.uoj.ac/slide/87#/" target="_blank" rel="noopener">http://vfleaking.blog.uoj.ac/slide/87#/</a></p>
+<p>看这个好东西复习一波容斥和莫比乌斯反演。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/math/" rel="tag"># math</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/21/2019.3.21/" rel="next" title="Post 72">
+                <i class="fa fa-chevron-left"></i> Post 72
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/24/2019.3.24/" rel="prev" title="Post 74">
+                Post 74 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzY3Ny8yMDIxNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">wavwing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">188</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">Tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Orz!
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/forever_shi" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;forever_shi" rel="noopener" target="_blank">forever_shi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://ctz45562.github.io/" title="https:&#x2F;&#x2F;ctz45562.github.io&#x2F;" rel="noopener" target="_blank">CST_Orz</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mobius-function-and-inversion"><span class="nav-number">1.</span> <span class="nav-text">Mobius function and inversion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容斥原理"><span class="nav-number">2.</span> <span class="nav-text">容斥原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FFT-Study-Note"><span class="nav-number">3.</span> <span class="nav-text">FFT Study Note</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FFT学习笔记"><span class="nav-number">3.1.</span> <span class="nav-text">FFT学习笔记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preface"><span class="nav-number">3.2.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复数"><span class="nav-number">3.3.</span> <span class="nav-text">复数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积-Convolution"><span class="nav-number">3.4.</span> <span class="nav-text">卷积 Convolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点值表示法-DotMethod"><span class="nav-number">3.5.</span> <span class="nav-text">点值表示法 DotMethod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点值相乘-Dot-Multiply"><span class="nav-number">3.6.</span> <span class="nav-text">点值相乘 Dot Multiply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单位根-Unit-Root"><span class="nav-number">3.7.</span> <span class="nav-text">单位根 Unit Root</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消去引理Elimination-Lemma"><span class="nav-number">3.8.</span> <span class="nav-text">消去引理Elimination Lemma</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#折半引理Binary-Lemma"><span class="nav-number">3.9.</span> <span class="nav-text">折半引理Binary Lemma</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求和引理"><span class="nav-number">3.10.</span> <span class="nav-text">求和引理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离散傅里叶变换DFT"><span class="nav-number">3.11.</span> <span class="nav-text">离散傅里叶变换DFT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FFT优化DFT"><span class="nav-number">3.12.</span> <span class="nav-text">FFT优化DFT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FFT优化IDFT"><span class="nav-number">3.13.</span> <span class="nav-text">FFT优化IDFT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蝴蝶定理与蝴蝶操作-Butterfly-Theorem-and-operation"><span class="nav-number">3.14.</span> <span class="nav-text">蝴蝶定理与蝴蝶操作 Butterfly Theorem and operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-number">3.15.</span> <span class="nav-text">Code</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式之NTT与任意模数NTT"><span class="nav-number">4.</span> <span class="nav-text">多项式之NTT与任意模数NTT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preface"><span class="nav-number">4.1.</span> <span class="nav-text">preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原根"><span class="nav-number">4.2.</span> <span class="nav-text">原根</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾FFT"><span class="nav-number">4.3.</span> <span class="nav-text">回顾FFT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数论变换NTT"><span class="nav-number">4.4.</span> <span class="nav-text">数论变换NTT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.4.1.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式求逆"><span class="nav-number">5.</span> <span class="nav-text">多项式求逆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#preface-1"><span class="nav-number">5.1.</span> <span class="nav-text">preface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">5.2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">5.3.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#倍增"><span class="nav-number">5.3.1.</span> <span class="nav-text">倍增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTT优化卷积乘法"><span class="nav-number">5.3.2.</span> <span class="nav-text">NTT优化卷积乘法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正式"><span class="nav-number">5.4.</span> <span class="nav-text">正式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倍增-NTT优化"><span class="nav-number">5.5.</span> <span class="nav-text">倍增+NTT优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分治FFT"><span class="nav-number">6.</span> <span class="nav-text">分治FFT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">6.1.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Taylor展开"><span class="nav-number">7.</span> <span class="nav-text">Taylor展开</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#泰勒公式"><span class="nav-number">7.1.</span> <span class="nav-text">泰勒公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泰勒定理"><span class="nav-number">7.2.</span> <span class="nav-text">泰勒定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#余项估计"><span class="nav-number">7.3.</span> <span class="nav-text">余项估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多元泰勒公式"><span class="nav-number">7.4.</span> <span class="nav-text">多元泰勒公式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式除法"><span class="nav-number">8.</span> <span class="nav-text">多项式除法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+    
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wavwing</span>
+
+  
+
+  
+</div>
+
+
+ 
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.5.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </footer></div>
+    
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/03/22/Polymial Notes/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

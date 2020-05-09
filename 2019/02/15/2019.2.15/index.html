@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="关于欧拉函数一个重要性质，找到一个简洁的证明，如下（from StackExchange)  对于这个性质，简单来说就是对于每个$n$的约数，他们的欧拉函数之和为$n$本身，在化简计算表达式的时候经常起到作用。  [SHOI2001]击鼓传花题目描述HC(Happy Child )小朋友最近经常在教室里跟同学一起玩击鼓传花的游戏，规则是第n个拿到花的小朋友必须说出n!最后一位非0 的数字，如此">
+<meta name="keywords" content="数学相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Post 55">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/2019.2.15/index.html">
+<meta property="og:site_name" content="wavwing&#39;s blog">
+<meta property="og:description" content="关于欧拉函数一个重要性质，找到一个简洁的证明，如下（from StackExchange)  对于这个性质，简单来说就是对于每个$n$的约数，他们的欧拉函数之和为$n$本身，在化简计算表达式的时候经常起到作用。  [SHOI2001]击鼓传花题目描述HC(Happy Child )小朋友最近经常在教室里跟同学一起玩击鼓传花的游戏，规则是第n个拿到花的小朋友必须说出n!最后一位非0 的数字，如此">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/phiprove.png">
+<meta property="og:image" content="http://yoursite.com/images/bzoj3237_1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/bzoj3237_2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/bzoj3237_3.jpg">
+<meta property="og:image" content="http://yoursite.com/images/bzoj2054_1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/bzoj2054_2.jpg">
+<meta property="og:updated_time" content="2019-02-16T14:20:52.248Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Post 55">
+<meta name="twitter:description" content="关于欧拉函数一个重要性质，找到一个简洁的证明，如下（from StackExchange)  对于这个性质，简单来说就是对于每个$n$的约数，他们的欧拉函数之和为$n$本身，在化简计算表达式的时候经常起到作用。  [SHOI2001]击鼓传花题目描述HC(Happy Child )小朋友最近经常在教室里跟同学一起玩击鼓传花的游戏，规则是第n个拿到花的小朋友必须说出n!最后一位非0 的数字，如此">
+<meta name="twitter:image" content="http://yoursite.com/images/phiprove.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/15/2019.2.15/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Post 55 | wavwing's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wavwing's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">nothing</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Startseite</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Archiv</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/15/2019.2.15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wavwing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wavwing's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Post 55
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+		
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2019-02-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-15T00:00:00+08:00">2019-02-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Updated at: 2019-02-16 22:20:52" itemprop="dateModified" datetime="2019-02-16T22:20:52+08:00">2019-02-16</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于欧拉函数一个重要性质，找到一个简洁的证明，如下（from StackExchange)</p>
+<p><img src="/images/phiprove.png" alt="img"></p>
+<p>对于这个性质，简单来说就是对于每个$n$的约数，他们的欧拉函数之和为$n$本身，在化简计算表达式的时候经常起到作用。</p>
+<hr>
+<h1 id="SHOI2001-击鼓传花"><a href="#SHOI2001-击鼓传花" class="headerlink" title="[SHOI2001]击鼓传花"></a>[SHOI2001]击鼓传花</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>HC(Happy Child )小朋友最近经常在教室里跟同学一起玩击鼓传花的游戏，规则是第n个拿到花的小朋友必须说出n!最后一位非0 的数字，如此循环游戏，如果谁讲错了就得罚唱一支歌曲。</p>
+<p>经过几次游戏，HC小朋友认为只要把前一个小朋友说得数字去乘以n，说出得到的数的最后一位非0的数字就可以了，可惜HC小朋友这次轮到了第15个，结果被罚了唱歌(应该是8，但是HC小朋友却说了3)。</p>
+<p>HC小朋友不希望这样的事情再次发生，所以希望你能编写一个程序，能够计算出n!的最后一位非0的数字。</p>
+<h2 id="输入输出格式"><a href="#输入输出格式" class="headerlink" title="输入输出格式"></a>输入输出格式</h2><p>输入格式：</p>
+<p>输入有5行，第I(1≤i≤5)行是一个n(1≤n≤10100，10的100次幂)。</p>
+<p>输出格式：</p>
+<p>输出有5行。</p>
+<p>第I行对应输入中第I行的n的阶乘的最后一位非0的数字。</p>
+<h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><p>输入样例#1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+<p>输出样例#1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">8</span><br><span class="line">6</span><br><span class="line">8</span><br><span class="line">2</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>让你求一个大数阶乘的最右非0数。</p>
+<p>考虑到有2有5两个质因子就会有一个0出现！</p>
+<p>如果学过扩展Lucas的话应该知道如何快速计算阶乘的某一个质因子个数。</p>
+<p>这时候剩余一些2和其他的数。</p>
+<p>考虑怎么计算他们对10取余的答案。</p>
+<p>循环节！</p>
+<p>这是显而易见的，在去掉那些配对的2和5之后把阶乘数列写出来（在对10取余并且去掉了2和5，多去掉的2可以后面快速幂直接算），若干项就会有循环，具体大概是鸽巢原理的证明。</p>
+<p>本题做完了，<del>我当场爆切</del></p>
+<hr>
+<h1 id="4382-POI2015-Podzial-naszyjnika"><a href="#4382-POI2015-Podzial-naszyjnika" class="headerlink" title="4382: [POI2015]Podział naszyjnika"></a>4382: [POI2015]Podział naszyjnika</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>长度为n的一串项链，每颗珠子是k种颜色之一。 第i颗与第i-1,i+1颗珠子相邻，第n颗与第1颗也相邻。<br>切两刀，把项链断成两条链。要求每种颜色的珠子只能出现在其中一条链中。<br>求方案数量（保证至少存在一种），以及切成的两段长度之差绝对值的最小值。</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>第一行n,k(2&lt;=k&lt;=n&lt;=1000000)。颜色从1到k标号。<br>接下来n个数，按顺序表示每颗珠子的颜色。（保证k种颜色各出现至少一次）。</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>一行两个整数：方案数量，和长度差的最小值</p>
+<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>9 5<br> 2 5 3 2 2 4 1 1 3</p>
+<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>4 3</p>
+<h2 id="HINT"><a href="#HINT" class="headerlink" title="HINT"></a>HINT</h2><p>四种方法中较短的一条分别是(5),(4),(1,1),(4,1,1)。相差最小值6-3=3。</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="3237-Ahoi2013-连通图"><a href="#3237-Ahoi2013-连通图" class="headerlink" title="3237: [Ahoi2013]连通图"></a>3237: [Ahoi2013]连通图</h1><p><img src="/images/bzoj3237_1.jpg" alt="img"></p>
+<p><img src="/images/bzoj3237_2.jpg" alt="img"></p>
+<p><img src="/images/bzoj3237_3.jpg" alt="img"></p>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="3534-Sdoi2014-重建"><a href="#3534-Sdoi2014-重建" class="headerlink" title="3534: [Sdoi2014]重建"></a>3534: [Sdoi2014]重建</h1><h2 id="Description-1"><a href="#Description-1" class="headerlink" title="Description"></a>Description</h2><p>  T国有N个城市，用若干双向道路连接。一对城市之间至多存在一条道路。<br>    在一次洪水之后，一些道路受损无法通行。虽然已经有人开始调查道路的损毁情况，但直到现在几乎没有消息传回。<br>    辛运的是，此前T国政府调查过每条道路的强度，现在他们希望只利用这些信息估计灾情。具体地，给定每条道路在洪水后仍能通行的概率，请计算仍能通行的道路恰有N-1条，且能联通所有城市的概率。</p>
+<h2 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h2><p>  输入的第一行包含整数N。<br>  接下来N行，每行N个实数，第i+l行，列的数G[i][j]表示城市i与j之<br>间仍有道路联通的概率。<br>    输入保证G[i][j]=G[j][i]，且G[i][j]=0；G[i][j]至多包含两位小数。</p>
+<h2 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h2><pre><code>输出一个任意位数的实数表示答案。
+你的答案与标准答案相对误差不超过10^(-4)即视为正确。
+</code></pre><h2 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input"></a>Sample Input</h2><pre><code> 3
+ 0 0.5 0.5
+ 0.5 0 0.5
+ 0.5 0.5 0
+</code></pre><h2 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>​    0.375</p>
+<h2 id="HINT-1"><a href="#HINT-1" class="headerlink" title="HINT"></a>HINT</h2><p>1 &lt; N &lt; =50</p>
+<h2 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="4144-AMPPZ2014-Petrol"><a href="#4144-AMPPZ2014-Petrol" class="headerlink" title="4144: [AMPPZ2014]Petrol"></a>4144: [AMPPZ2014]Petrol</h1><h2 id="Description-2"><a href="#Description-2" class="headerlink" title="Description"></a>Description</h2><p>给定一个n个点、m条边的带权无向图，其中有s个点是加油站。</p>
+<p>每辆车都有一个油量上限b，即每次行走距离不能超过b，但在加油站可以补满。</p>
+<p>q次询问，每次给出x,y,b，表示出发点是x，终点是y，油量上限为b，且保证x点和y点都是加油站，请回答能否从x走到y。</p>
+<h2 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h2><p>第一行包含三个正整数n,s,m(2&lt;=s&lt;=n&lt;=200000,1&lt;=m&lt;=200000)，表示点数、加油站数和边数。</p>
+<p>第二行包含s个互不相同的正整数c[1],c[2],…c<a href="1&lt;=c[i]&lt;=n">s</a>，表示每个加油站。</p>
+<p>接下来m行，每行三个正整数u[i],v[i],d<a href="1&lt;=u[i],v[i]&lt;=n,u[i]!=v[i],1&lt;=d[i]&lt;=10000">i</a>，表示u[i]和v[i]之间有一条长度为d[i]的双向边。</p>
+<p>接下来一行包含一个正整数q(1&lt;=q&lt;=200000)，表示询问数。</p>
+<p>接下来q行，每行包含三个正整数x[i],y[i],b<a href="1&lt;=x[i],y[i]&lt;=n,x[i]!=y[i],1&lt;=b[i]&lt;=2*10^9">i</a>，表示一个询问。</p>
+<h2 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h2><p>输出q行。第i行输出第i个询问的答案，如果可行，则输出TAK，否则输出NIE。</p>
+<h2 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>6 4 5<br> 1 5 2 6<br> 1 3 1<br> 2 3 2<br> 3 4 3<br> 4 5 5<br> 6 4 5<br> 4<br> 1 2 4<br> 2 6 9<br> 1 5 9<br> 6 5 8</p>
+<h2 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>TAK<br> TAK<br> TAK<br> NIE</p>
+<h2 id="HINT-2"><a href="#HINT-2" class="headerlink" title="HINT"></a>HINT</h2><h2 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="4400-tjoi2012-桥"><a href="#4400-tjoi2012-桥" class="headerlink" title="4400: tjoi2012 桥"></a>4400: tjoi2012 桥</h1><h2 id="Description-3"><a href="#Description-3" class="headerlink" title="Description"></a>Description</h2><p>有n个岛屿，m座桥，每座桥连通两座岛屿，桥上会有一些敌人，玩家只有消灭了桥上的敌人才能通过，与此同时桥上的敌人会对玩家造成一定伤害。而且会有一个大Boss镇守一座桥，以玩家目前的能力，是不可能通过的。而Boss是邪恶的，Boss会镇守某一座使得玩家受到最多的伤害才能从岛屿1到达岛屿n(当然玩家会选择伤害最小的路径)。问，Boss可能镇守桥有哪些。</p>
+<h2 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h2><p>第一行两个整数n,m<br>接下来m行，每行三个整数s,t,c，表示一座连接岛屿s和t的桥上的敌人会对玩家造成c的伤害。</p>
+<h2 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h2><p>一行，两个整数d,cnt，d表示有Boss的情况下，玩家要受到的伤害，cnt表示Boss有可能镇守的桥的数目。</p>
+<h2 id="Sample-Input-3"><a href="#Sample-Input-3" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>3 4<br> 1 2 1<br> 1 2 2<br> 2 3 1<br> 2 3 1</p>
+<h2 id="Sample-Output-3"><a href="#Sample-Output-3" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>3 1</p>
+<h2 id="HINT-3"><a href="#HINT-3" class="headerlink" title="HINT"></a>HINT</h2><p>100%的数据，1&lt;=n&lt;=100000，1&lt;=m&lt;=200000，1&lt;=c&lt;=10000，数据保证玩家可以从岛屿1到达岛屿n</p>
+<h2 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="2612-Poi2003-Sums"><a href="#2612-Poi2003-Sums" class="headerlink" title="2612: [Poi2003]Sums"></a>2612: [Poi2003]Sums</h1><h2 id="Description-4"><a href="#Description-4" class="headerlink" title="Description"></a>Description</h2><p>我们给定一个整数集合<em>A</em>. 考虑一个非负整数集合<em>A</em>‘, 所有属于<em>A</em>‘ 的集合的数x满足当且仅当能被表示成一些属于<em>A</em> 的元素的和(数字可重复). 比如, 当 <em>A</em> = {2,5,7}, 属于<em>A</em>‘ 的数为: 0 (0个元素的和), 2, 4 (2  +  2) and 12 (5 + 7 or 7 + 5 or 2 + 2 + 2 + 2 + 2 + 2); 但是元素1和3不属于<em>A</em>‘.</p>
+<h2 id="Input-4"><a href="#Input-4" class="headerlink" title="Input"></a>Input</h2><p>第一行有一个整数<em>n</em>: 代表集合 <em>A</em>的元素个数, 1 &lt;= <em>n</em> &lt;= 5000. 接下来每行一个数<em>ai</em>描述一个元素, 1 &lt;= <em>ai</em> &lt;= 50000. <em>A</em> = {<em>a</em>1, <em>a</em>2, …, <em>an</em>}, <em>a</em>1 &lt; <em>a</em>2 &lt; … &lt; <em>an</em>.</p>
+<p>接下来一个整数<em>k</em>, 1 &lt;= <em>k</em> &lt;= 10000. 每行一个0 到 1000000000, 分别代表<em>b</em>1, <em>b</em>2, …, <em>bk</em>.</p>
+<h2 id="Output-4"><a href="#Output-4" class="headerlink" title="Output"></a>Output</h2><p>输出<em>k</em>行. 第<em>i</em>行打印<code>TAK</code>, 如果 <em>bi</em> 属于<em>A</em>‘, 否则打印<code>NIE</code>.</p>
+<h2 id="Sample-Input-4"><a href="#Sample-Input-4" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>3</p>
+<p> 2<br> 5<br> 7<br> 6<br> 0<br> 1<br> 4<br> 12<br> 3<br> 2</p>
+<h2 id="Sample-Output-4"><a href="#Sample-Output-4" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>TAK<br> NIE<br> TAK<br> TAK<br> NIE<br> TAK</p>
+<h2 id="题解-6"><a href="#题解-6" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="2054-疯狂的馒头"><a href="#2054-疯狂的馒头" class="headerlink" title="2054: 疯狂的馒头"></a>2054: 疯狂的馒头</h1><p>Description</p>
+<p><img src="/images/bzoj2054_1.jpg" alt="img"></p>
+<h2 id="Input-5"><a href="#Input-5" class="headerlink" title="Input"></a>Input</h2><p>第一行四个正整数N，M，p，q</p>
+<h2 id="Output-5"><a href="#Output-5" class="headerlink" title="Output"></a>Output</h2><p>一共输出N行，第i行表示第i个馒头的最终颜色（如果最终颜色是白色就输出0）。</p>
+<h2 id="Sample-Input-5"><a href="#Sample-Input-5" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>4 3 2 4</p>
+<h2 id="Sample-Output-5"><a href="#Sample-Output-5" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>2<br> 2<br> 3<br> 0</p>
+<h2 id="HINT-4"><a href="#HINT-4" class="headerlink" title="HINT"></a>HINT</h2><p><img src="/images/bzoj2054_2.jpg" alt="img"></p>
+<h2 id="题解-7"><a href="#题解-7" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="3563-DZY-Loves-Chinese"><a href="#3563-DZY-Loves-Chinese" class="headerlink" title="3563: DZY Loves Chinese"></a>3563: DZY Loves Chinese</h1><h2 id="Description-5"><a href="#Description-5" class="headerlink" title="Description"></a>Description</h2><p>神校XJ之学霸兮，Dzy皇考曰JC。</p>
+<p>摄提贞于孟陬兮，惟庚寅Dzy以降。</p>
+<p>纷Dzy既有此内美兮，又重之以修能。</p>
+<p>遂降临于OI界，欲以神力而凌♂辱众生。</p>
+<p>今Dzy有一魞歄图，其上有N座祭坛，又有M条膴蠁边。</p>
+<p>时而Dzy狂WA而怒发冲冠，神力外溢，遂有K条膴蠁边灰飞烟灭。</p>
+<p>而后俟其日A50题则又令其复原。（可视为立即复原）</p>
+<p>然若有祭坛无法相互到达，Dzy之神力便会大减，于是欲知其是否连通。</p>
+<h2 id="Input-6"><a href="#Input-6" class="headerlink" title="Input"></a>Input</h2><p>第一行N,M</p>
+<p>接下来M行x,y：表示M条膴蠁边，依次编号</p>
+<p>接下来一行Q</p>
+<p>接下来Q行：</p>
+<p>每行第一个数K而后K个编号c1~cK：表示K条边，编号为c1~cK</p>
+<p>为了体现在线，K以及c1~cK均需异或之前回答为连通的个数</p>
+<h2 id="Output-6"><a href="#Output-6" class="headerlink" title="Output"></a>Output</h2><p>对于每个询问输出：连通则为‘Connected’，不连通则为‘Disconnected’</p>
+<p>（不加引号）</p>
+<h2 id="Sample-Input-6"><a href="#Sample-Input-6" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>5 10<br> 2 1<br> 3 2<br> 4 2<br> 5 1<br> 5 3<br> 4 1<br> 4 3<br> 5 2<br> 3 1<br> 5 4<br> 5<br> 1 1<br> 2 7 0 3<br> 6 0 7 4 6<br> 1 2 7<br> 0 5 0 2 13</p>
+<h2 id="Sample-Output-6"><a href="#Sample-Output-6" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>Connected<br> Connected<br> Connected<br> Connected<br> Disconnected</p>
+<h2 id="HINT-5"><a href="#HINT-5" class="headerlink" title="HINT"></a>HINT</h2><p>HINT</p>
+<p>N≤100000 M≤500000 Q≤50000 1≤K≤15</p>
+<p>数据保证没有重边与自环</p>
+<p>Tip：请学会使用搜索引擎</p>
+<h2 id="题解-8"><a href="#题解-8" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="5102-POI2018-Prawnicy"><a href="#5102-POI2018-Prawnicy" class="headerlink" title="5102: [POI2018]Prawnicy"></a>5102: [POI2018]Prawnicy</h1><h2 id="Description-6"><a href="#Description-6" class="headerlink" title="Description"></a>Description</h2><p>定义一个区间(l,r)的长度为r-l，空区间的长度为0。</p>
+<p>给定数轴上n个区间，请选择其中恰好k个区间，使得交集的长度最大。</p>
+<h2 id="Input-7"><a href="#Input-7" class="headerlink" title="Input"></a>Input</h2><p>第一行包含两个正整数n,k(1&lt;=k&lt;=n&lt;=1000000)，表示区间的数量。</p>
+<p>接下来n行，每行两个正整数l,r(1&lt;=l&lt;r&lt;=10^9)，依次表示每个区间。</p>
+<h2 id="Output-7"><a href="#Output-7" class="headerlink" title="Output"></a>Output</h2><p>第一行输出一个整数，即最大长度。</p>
+<p>第二行输出k个正整数，依次表示选择的是输入文件中的第几个区间。</p>
+<p>若有多组最优解，输出任意一组。</p>
+<h2 id="Sample-Input-7"><a href="#Sample-Input-7" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>6 3<br> 3 8<br> 4 12<br> 2 6<br> 1 10<br> 5 9<br> 11 12</p>
+<h2 id="Sample-Output-7"><a href="#Sample-Output-7" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>4<br> 1 2 4</p>
+<h2 id="题解-9"><a href="#题解-9" class="headerlink" title="题解"></a>题解</h2><hr>
+<h1 id="2151-种树"><a href="#2151-种树" class="headerlink" title="2151: 种树"></a>2151: 种树</h1><h2 id="Description-7"><a href="#Description-7" class="headerlink" title="Description"></a>Description</h2><p>A城市有一个巨大的圆形广场，为了绿化环境和净化空气，市政府决定沿圆形广场外圈种一圈树。园林部门得到指令后，初步规划出n个种树的位置，顺时针编号1到n。并且每个位置都有一个美观度Ai，如果在这里种树就可以得到这Ai的美观度。但由于A城市土壤肥力欠佳，两棵树决不能种在相邻的位置（i号位置和i+1号位置叫相邻位置。值得注意的是1号和n号也算相邻位置！）。最终市政府给园林部门提供了m棵树苗并要求全部种上，请你帮忙设计种树方案使得美观度总和最大。如果无法将m棵树苗全部种上，给出无解信息。</p>
+<h2 id="Input-8"><a href="#Input-8" class="headerlink" title="Input"></a>Input</h2><p>输入的第一行包含两个正整数n、m。第二行n个整数Ai。</p>
+<h2 id="Output-8"><a href="#Output-8" class="headerlink" title="Output"></a>Output</h2><p>输出一个整数，表示最佳植树方案可以得到的美观度。如果无解输出“Error!”，不包含引号。</p>
+<h2 id="Sample-Input-8"><a href="#Sample-Input-8" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>【样例输入1】<br> 7 3<br> 1 2 3 4 5 6 7<br> 【样例输入2】<br> 7 4<br> 1 2 3 4 5 6 7</p>
+<h2 id="Sample-Output-8"><a href="#Sample-Output-8" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>【样例输出1】<br> 15</p>
+<p> 【样例输出2】<br> Error!<br> 【数据规模】<br> 对于全部数据：m&lt;=n；<br>              -1000&lt;=Ai&lt;=1000<br> N的大小对于不同数据有所不同：<br> 数据编号    N的大小    数据编号    N的大小<br> 1    30    11    200<br> 2    35    12    2007<br> 3    40    13    2008<br> 4    45    14    2009<br> 5    50    15    2010<br> 6    55    16    2011<br> 7    60    17    2012<br> 8    65    18    199999<br> 9    200    19    199999<br> 10    200    20    200000</p>
+<hr>
+<h1 id="2802-Poi2012-Warehouse-Store"><a href="#2802-Poi2012-Warehouse-Store" class="headerlink" title="2802: [Poi2012]Warehouse Store"></a>2802: [Poi2012]Warehouse Store</h1><h2 id="Description-8"><a href="#Description-8" class="headerlink" title="Description"></a>Description</h2><p>有一家专卖一种商品的店，考虑连续的n天。<br>第i天上午会进货Ai件商品，中午的时候会有顾客需要购买Bi件商品，可以选择满足顾客的要求，或是无视掉他。<br>如果要满足顾客的需求，就必须要有足够的库存。问最多能够满足多少个顾客的需求。</p>
+<h2 id="Input-9"><a href="#Input-9" class="headerlink" title="Input"></a>Input</h2><p>第一行一个正整数n (n&lt;=250,000)。<br>第二行n个整数A1,A2,…An (0&lt;=Ai&lt;=10^9)。<br>第三行n个整数B1,B2,…Bn (0&lt;=Bi&lt;=10^9)。</p>
+<h2 id="Output-9"><a href="#Output-9" class="headerlink" title="Output"></a>Output</h2><p>第一行一个正整数k，表示最多能满足k个顾客的需求。<br>第二行k个依次递增的正整数X1,X2,…,Xk，表示在第X1,X2,…,Xk天分别满足顾客的需求。</p>
+<h2 id="Sample-Input-9"><a href="#Sample-Input-9" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>6<br> 2 2 1 2 1 0<br> 1 2 2 3 4 4</p>
+<h2 id="Sample-Output-9"><a href="#Sample-Output-9" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>3<br>1 2 4</p>
+<hr>
+<h1 id="3709-PA2014-Bohater"><a href="#3709-PA2014-Bohater" class="headerlink" title="3709: [PA2014]Bohater"></a>3709: [PA2014]Bohater</h1><h2 id="Description-9"><a href="#Description-9" class="headerlink" title="Description"></a>Description</h2><p>在一款电脑游戏中，你需要打败n只怪物（从1到n编号）。为了打败第i只怪物，你需要消耗d[i]点生命值，但怪物死后会掉落血药，使你恢复a[i]点生命值。任何时候你的生命值都不能降到0（或0以下）。请问是否存在一种打怪顺序，使得你可以打完这n只怪物而不死掉</p>
+<h2 id="Input-10"><a href="#Input-10" class="headerlink" title="Input"></a>Input</h2><p>第一行两个整数n,z(1&lt;=n,z&lt;=100000)，分别表示怪物的数量和你的初始生命值。<br>接下来n行，每行两个整数d[i],a<a href="0&lt;=d[i],a[i]&lt;=100000">i</a></p>
+<h2 id="Output-10"><a href="#Output-10" class="headerlink" title="Output"></a>Output</h2><p>第一行为TAK（是）或NIE（否），表示是否存在这样的顺序。<br>如果第一行为TAK，则第二行为空格隔开的1~n的排列，表示合法的顺序。如果答案有很多，你可以输出其中任意一个。</p>
+<h2 id="Sample-Input-10"><a href="#Sample-Input-10" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>3 5<br> 3 1<br> 4 8<br> 8 3</p>
+<h2 id="Sample-Output-10"><a href="#Sample-Output-10" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>TAK<br> 2 3 1 </p>
+<hr>
+<h1 id="2006-NOI2010-超级钢琴"><a href="#2006-NOI2010-超级钢琴" class="headerlink" title="2006: [NOI2010]超级钢琴"></a>2006: [NOI2010]超级钢琴</h1><h2 id="Description-10"><a href="#Description-10" class="headerlink" title="Description"></a>Description</h2><p>小Z是一个小有名气的钢琴家，最近C博士送给了小Z一架超级钢琴，小Z希望能够用这架钢琴创作出世界上最美妙的</p>
+<p>音乐。 这架超级钢琴可以弹奏出n个音符，编号为1至n。第i个音符的美妙度为Ai，其中Ai可正可负。 一个“超级</p>
+<p>和弦”由若干个编号连续的音符组成，包含的音符个数不少于L且不多于R。我们定义超级和弦的美妙度为其包含的</p>
+<p>所有音符的美妙度之和。两个超级和弦被认为是相同的，当且仅当这两个超级和弦所包含的音符集合是相同的。 </p>
+<p>小Z决定创作一首由k个超级和弦组成的乐曲，为了使得乐曲更加动听，小Z要求该乐曲由k个不同的超级和弦组成。</p>
+<p>我们定义一首乐曲的美妙度为其所包含的所有超级和弦的美妙度之和。小Z想知道他能够创作出来的乐曲美妙度最</p>
+<p>大值是多少。</p>
+<h2 id="Input-11"><a href="#Input-11" class="headerlink" title="Input"></a>Input</h2><p>第一行包含四个正整数n, k, L, R。其中n为音符的个数，k为乐曲所包含的超级和弦个数，L和R分别是超级和弦所</p>
+<p>包含音符个数的下限和上限。 接下来n行，每行包含一个整数Ai，表示按编号从小到大每个音符的美妙度。</p>
+<p>N&lt;=500,000</p>
+<p>k&lt;=500,000</p>
+<p>-1000&lt;=Ai&lt;=1000,1&lt;=L&lt;=R&lt;=N且保证一定存在满足条件的乐曲</p>
+<h2 id="Output-11"><a href="#Output-11" class="headerlink" title="Output"></a>Output</h2><p>只有一个整数，表示乐曲美妙度的最大值。</p>
+<h2 id="Sample-Input-11"><a href="#Sample-Input-11" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>4 3 2 3<br> 3<br> 2<br> -6<br> 8</p>
+<h2 id="Sample-Output-11"><a href="#Sample-Output-11" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>11</p>
+<p> 【样例说明】<br> 共有5种不同的超级和弦：<br> 音符1 ~ 2，美妙度为3 + 2 = 5<br> 音符2 ~ 3，美妙度为2 + (-6) = -4<br> 音符3 ~ 4，美妙度为(-6) + 8 = 2<br> 音符1 ~ 3，美妙度为3 + 2 + (-6) = -1<br> 音符2 ~ 4，美妙度为2 + (-6) + 8 = 4<br> 最优方案为：乐曲由和弦1，和弦3，和弦5组成，美妙度为5 + 2 + 4 = 11。</p>
+<hr>
+<h1 id="3533-Sdoi2014-向量集"><a href="#3533-Sdoi2014-向量集" class="headerlink" title="3533: [Sdoi2014]向量集"></a>3533: [Sdoi2014]向量集</h1><p>[<a href="https://www.lydsy.com/JudgeOnline/submitpage.php?id=3533" target="_blank" rel="noopener">Submit</a>][<a href="https://www.lydsy.com/JudgeOnline/problemstatus.php?id=3533" target="_blank" rel="noopener">Status</a>][<a href="https://www.lydsy.com/JudgeOnline/bbs.php?id=3533" target="_blank" rel="noopener">Discuss</a>]</p>
+<h2 id="Description-11"><a href="#Description-11" class="headerlink" title="Description"></a>Description</h2><p>维护一个向量集合，在线支持以下操作：<br>“A x y (|x|，|y| &lt; =10^8)”：加入向量(x，y);<br>“ Q x y l r (|x|，|y| &lt; =10^8，1 &lt; =L &lt; =R &lt; =T，其中T为已经加入的向量个数)询问第L个到第R个加入的向量与向量(x，y)的点积的最大值。<br>    集合初始时为空。</p>
+<h2 id="Input-12"><a href="#Input-12" class="headerlink" title="Input"></a>Input</h2><p>​    输入的第一行包含整数N和字符s，分别表示操作数和数据类别；<br>​    接下来N行，每行一个操作，格式如上所述。<br>​    请注意s≠’E’时，输入中的所有整数都经过了加密。你可以使用以下程序<br>得到原始输入：<br>inline int decode (int x long long lastans) {<br>​     return x ^ (lastans &amp; Ox7fffffff);<br>}<br>function decode<br>begin<br>​    其中x为程序读入的数，lastans为之前最后一次询问的答案。在第一次询问之前，lastans=0。</p>
+<p>注：向量(x，y)和(z，W)的点积定义为xz+yw。</p>
+<h2 id="Output-12"><a href="#Output-12" class="headerlink" title="Output"></a>Output</h2><p>  对每个Q操作，输出一个整数表示答案。</p>
+<h2 id="Sample-Input-12"><a href="#Sample-Input-12" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>​    6 A<br>​     A 3 2<br>​     Q 1 5 1 1<br>​     A 15 14<br>​     A 12 9<br>​     Q 12 8 12 15<br>​     Q 21 18 19 18</p>
+<h2 id="Sample-Output-12"><a href="#Sample-Output-12" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>​    13<br>​     17<br>​     17</p>
+<p> 解释：解密之后的输入为<br>   6 E<br>​     A 3 2<br>​     Q 1 5 1 1<br>​     A 2 3<br>​     A 1 4<br>​     Q 1 5 1 2<br>​     Q 4 3 2 3</p>
+<h2 id="HINT-6"><a href="#HINT-6" class="headerlink" title="HINT"></a>HINT</h2><p>1 &lt; =N &lt; =4×10^5</p>
+<hr>
+<h1 id="1010-HNOI2008-玩具装箱toy"><a href="#1010-HNOI2008-玩具装箱toy" class="headerlink" title="1010: [HNOI2008]玩具装箱toy"></a>1010: [HNOI2008]玩具装箱toy</h1><h2 id="Description-12"><a href="#Description-12" class="headerlink" title="Description"></a>Description</h2><p>　　P教授要去看奥运，但是他舍不下他的玩具，于是他决定把所有的玩具运到北京。他使用自己的压缩器进行压<br>缩，其可以将任意物品变成一堆，再放到一种特殊的一维容器中。P教授有编号为1…N的N件玩具，第i件玩具经过<br>压缩后变成一维长度为Ci.为了方便整理，P教授要求在一个一维容器中的玩具编号是连续的。同时如果一个一维容<br>器中有多个玩具，那么两件玩具之间要加入一个单位长度的填充物，形式地说如果将第i件玩具到第j个玩具放到一<br>个容器中，那么容器的长度将为 x=j-i+Sigma(Ck) i&lt;=K&lt;=j 制作容器的费用与容器的长度有关，根据教授研究，<br>如果容器长度为x,其制作费用为(X-L)^2.其中L是一个常量。P教授不关心容器的数目，他可以制作出任意长度的容<br>器，甚至超过L。但他希望费用最小.</p>
+<h2 id="Input-13"><a href="#Input-13" class="headerlink" title="Input"></a>Input</h2><p>　　第一行输入两个整数N，L.接下来N行输入Ci.1&lt;=N&lt;=50000,1&lt;=L,Ci&lt;=10^7</p>
+<h2 id="Output-13"><a href="#Output-13" class="headerlink" title="Output"></a>Output</h2><p>　　输出最小费用</p>
+<h2 id="Sample-Input-13"><a href="#Sample-Input-13" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>5 4<br> 3<br> 4<br> 2<br> 1<br> 4</p>
+<h2 id="Sample-Output-13"><a href="#Sample-Output-13" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>1</p>
+<h1 id="2388-旅行规划"><a href="#2388-旅行规划" class="headerlink" title="2388: 旅行规划"></a>2388: 旅行规划</h1><h2 id="Description-13"><a href="#Description-13" class="headerlink" title="Description"></a>Description</h2><p>OIVillage是一个风景秀美的乡村，为了更好的利用当地的旅游资源，吸引游客，推动经济发展，xkszltl决定修建了一条铁路将当地n个最著名的经典连接起来，让游客可以通过火车从铁路起点（1号景点）出发，依次游览每个景区。为了更好的评价这条铁路，xkszltl为每一个景区都哦赋予了一个美观度，而一条旅行路径的价值就是它所经过的景区的美观度之和。不过，随着天气与季节的变化，某些景点的美观度也会发生变化。</p>
+<p>xkszltl希望为每位旅客提供最佳的旅行指导，但是由于游客的时间有限，不一定能游览全部景区，然而他们也不希望旅途过于短暂，所以每个游客都希望能在某一个区间内的车站结束旅程，而xkszltl的任务就是为他们选择一个终点使得旅行线路的价值最大。可是当地的景点与前来观光的旅客实在是太多了，xkszltl无法及时完成任务，于是找到了准备虐杀NOI2011的你，希望你能帮助他完成这个艰巨的任务。</p>
+<h2 id="Input-14"><a href="#Input-14" class="headerlink" title="Input"></a>Input</h2><p>第一行给出一个整数n，接下来一行给出n的景区的初始美观度。</p>
+<p>第三行给出一个整数m，接下来m行每行为一条指令：</p>
+<p>\1.         0 x y k：表示将x到y这段铁路边上的景区的美观度加上k；</p>
+<p>\2.         1 x y：表示有一名旅客想要在x到y这段（含x与y）中的某一站下车，你需要告诉他最大的旅行价值。</p>
+<h2 id="Output-14"><a href="#Output-14" class="headerlink" title="Output"></a>Output</h2><p>对于每个询问，输出一个整数表示最大的旅行价值。</p>
+<h2 id="Sample-Input-14"><a href="#Sample-Input-14" class="headerlink" title="Sample Input"></a>Sample Input</h2><p>5<br> 1 8 -8 3 -7<br> 3<br> 1 1 5<br> 0 1 3 6<br> 1 2 4</p>
+<h2 id="Sample-Output-14"><a href="#Sample-Output-14" class="headerlink" title="Sample Output"></a>Sample Output</h2><p>9<br> 22</p>
+<h2 id="HINT-7"><a href="#HINT-7" class="headerlink" title="HINT"></a>HINT</h2><p>Data Limit:</p>
+<p>对于20%的数据，n，m≤3000；</p>
+<p>对于40%的数据，n，m≤30000；</p>
+<p>对于50%的数据，n，m≤50000；</p>
+<p>另外20%的数据，n，m≤100000，修改操作≤20；</p>
+<p>对于100%的数据，n，m≤100000。</p>
+<h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学相关/" rel="tag"># 数学相关</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/2019.2.14/" rel="next" title="Post 54">
+                <i class="fa fa-chevron-left"></i> Post 54
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/16/configuration/" rel="prev" title="configurations for OI and others">
+                configurations for OI and others <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzY3Ny8yMDIxNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">wavwing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">188</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">Tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Orz!
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/forever_shi" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;forever_shi" rel="noopener" target="_blank">forever_shi</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://ctz45562.github.io/" title="https:&#x2F;&#x2F;ctz45562.github.io&#x2F;" rel="noopener" target="_blank">CST_Orz</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SHOI2001-击鼓传花"><span class="nav-number">1.</span> <span class="nav-text">[SHOI2001]击鼓传花</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入输出格式"><span class="nav-number">1.2.</span> <span class="nav-text">输入输出格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入输出样例"><span class="nav-number">1.3.</span> <span class="nav-text">输入输出样例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">1.4.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4382-POI2015-Podzial-naszyjnika"><span class="nav-number">2.</span> <span class="nav-text">4382: [POI2015]Podział naszyjnika</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description"><span class="nav-number">2.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input"><span class="nav-number">2.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output"><span class="nav-number">2.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input"><span class="nav-number">2.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output"><span class="nav-number">2.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT"><span class="nav-number">2.6.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-1"><span class="nav-number">2.7.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3237-Ahoi2013-连通图"><span class="nav-number">3.</span> <span class="nav-text">3237: [Ahoi2013]连通图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-2"><span class="nav-number">3.1.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3534-Sdoi2014-重建"><span class="nav-number">4.</span> <span class="nav-text">3534: [Sdoi2014]重建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-1"><span class="nav-number">4.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-1"><span class="nav-number">4.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-1"><span class="nav-number">4.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-1"><span class="nav-number">4.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-1"><span class="nav-number">4.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-1"><span class="nav-number">4.6.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-3"><span class="nav-number">4.7.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4144-AMPPZ2014-Petrol"><span class="nav-number">5.</span> <span class="nav-text">4144: [AMPPZ2014]Petrol</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-2"><span class="nav-number">5.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-2"><span class="nav-number">5.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-2"><span class="nav-number">5.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-2"><span class="nav-number">5.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-2"><span class="nav-number">5.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-2"><span class="nav-number">5.6.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-4"><span class="nav-number">5.7.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4400-tjoi2012-桥"><span class="nav-number">6.</span> <span class="nav-text">4400: tjoi2012 桥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-3"><span class="nav-number">6.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-3"><span class="nav-number">6.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-3"><span class="nav-number">6.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-3"><span class="nav-number">6.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-3"><span class="nav-number">6.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-3"><span class="nav-number">6.6.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-5"><span class="nav-number">6.7.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2612-Poi2003-Sums"><span class="nav-number">7.</span> <span class="nav-text">2612: [Poi2003]Sums</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-4"><span class="nav-number">7.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-4"><span class="nav-number">7.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-4"><span class="nav-number">7.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-4"><span class="nav-number">7.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-4"><span class="nav-number">7.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-6"><span class="nav-number">7.6.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2054-疯狂的馒头"><span class="nav-number">8.</span> <span class="nav-text">2054: 疯狂的馒头</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-5"><span class="nav-number">8.1.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-5"><span class="nav-number">8.2.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-5"><span class="nav-number">8.3.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-5"><span class="nav-number">8.4.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-4"><span class="nav-number">8.5.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-7"><span class="nav-number">8.6.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3563-DZY-Loves-Chinese"><span class="nav-number">9.</span> <span class="nav-text">3563: DZY Loves Chinese</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-5"><span class="nav-number">9.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-6"><span class="nav-number">9.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-6"><span class="nav-number">9.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-6"><span class="nav-number">9.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-6"><span class="nav-number">9.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-5"><span class="nav-number">9.6.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-8"><span class="nav-number">9.7.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5102-POI2018-Prawnicy"><span class="nav-number">10.</span> <span class="nav-text">5102: [POI2018]Prawnicy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-6"><span class="nav-number">10.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-7"><span class="nav-number">10.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-7"><span class="nav-number">10.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-7"><span class="nav-number">10.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-7"><span class="nav-number">10.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-9"><span class="nav-number">10.6.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2151-种树"><span class="nav-number">11.</span> <span class="nav-text">2151: 种树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-7"><span class="nav-number">11.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-8"><span class="nav-number">11.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-8"><span class="nav-number">11.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-8"><span class="nav-number">11.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-8"><span class="nav-number">11.5.</span> <span class="nav-text">Sample Output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2802-Poi2012-Warehouse-Store"><span class="nav-number">12.</span> <span class="nav-text">2802: [Poi2012]Warehouse Store</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-8"><span class="nav-number">12.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-9"><span class="nav-number">12.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-9"><span class="nav-number">12.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-9"><span class="nav-number">12.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-9"><span class="nav-number">12.5.</span> <span class="nav-text">Sample Output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3709-PA2014-Bohater"><span class="nav-number">13.</span> <span class="nav-text">3709: [PA2014]Bohater</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-9"><span class="nav-number">13.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-10"><span class="nav-number">13.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-10"><span class="nav-number">13.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-10"><span class="nav-number">13.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-10"><span class="nav-number">13.5.</span> <span class="nav-text">Sample Output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2006-NOI2010-超级钢琴"><span class="nav-number">14.</span> <span class="nav-text">2006: [NOI2010]超级钢琴</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-10"><span class="nav-number">14.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-11"><span class="nav-number">14.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-11"><span class="nav-number">14.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-11"><span class="nav-number">14.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-11"><span class="nav-number">14.5.</span> <span class="nav-text">Sample Output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3533-Sdoi2014-向量集"><span class="nav-number">15.</span> <span class="nav-text">3533: [Sdoi2014]向量集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-11"><span class="nav-number">15.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-12"><span class="nav-number">15.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-12"><span class="nav-number">15.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-12"><span class="nav-number">15.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-12"><span class="nav-number">15.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-6"><span class="nav-number">15.6.</span> <span class="nav-text">HINT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1010-HNOI2008-玩具装箱toy"><span class="nav-number">16.</span> <span class="nav-text">1010: [HNOI2008]玩具装箱toy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-12"><span class="nav-number">16.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-13"><span class="nav-number">16.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-13"><span class="nav-number">16.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-13"><span class="nav-number">16.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-13"><span class="nav-number">16.5.</span> <span class="nav-text">Sample Output</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2388-旅行规划"><span class="nav-number">17.</span> <span class="nav-text">2388: 旅行规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description-13"><span class="nav-number">17.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-14"><span class="nav-number">17.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output-14"><span class="nav-number">17.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-14"><span class="nav-number">17.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Output-14"><span class="nav-number">17.5.</span> <span class="nav-text">Sample Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HINT-7"><span class="nav-number">17.6.</span> <span class="nav-text">HINT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Source"><span class="nav-number">17.7.</span> <span class="nav-text">Source</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+    
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wavwing</span>
+
+  
+
+  
+</div>
+
+
+ 
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.5.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </footer></div>
+    
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/02/15/2019.2.15/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
