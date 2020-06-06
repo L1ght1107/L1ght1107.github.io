@@ -118,7 +118,8 @@
 <meta property="og:locale" content="English">
 <meta property="og:image" content="http://yoursite.com/images/2020.6.1.png">
 <meta property="og:image" content="http://yoursite.com/images/OneDrive1.png">
-<meta property="og:updated_time" content="2020-06-01T15:55:42.437Z">
+<meta property="og:image" content="http://yoursite.com/images/Steam1.png">
+<meta property="og:updated_time" content="2020-06-01T18:44:56.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2020.5.31">
 <meta name="twitter:description" content="Many tasks.">
@@ -239,7 +240,7 @@
 
     
 
-    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Home</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Startseite</a>
 
   </li>
         
@@ -256,7 +257,7 @@
 
     
 
-    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Archives</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br &#x2F;&gt;Archiv</a>
 
   </li>
 
@@ -267,7 +268,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Suche</a>
         </li>
       
     </ul>
@@ -373,14 +374,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
 
               
                 
               
 
-              <time title="Created: 2020-05-31 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-31T00:00:00+08:00">2020-05-31</time>
+              <time title="Post created: 2020-05-31 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-31T00:00:00+08:00">2020-05-31</time>
             
 
             
@@ -397,7 +398,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-01 23:55:42" itemprop="dateModified" datetime="2020-06-01T23:55:42+08:00">2020-06-01</time>
+                <time title="Updated at: 2020-06-02 02:44:56" itemprop="dateModified" datetime="2020-06-02T02:44:56+08:00">2020-06-02</time>
               
             
           </span>
@@ -463,6 +464,34 @@
 <p>This is the same as setting the attr_timeout option in mount.fuse.</p>
 <p>简直无比麻烦，弄得我都想直接Raidrive了，不过感觉Raidrive比起rclone不是那么可靠。。闭源+只读不可写，除了UI好看点没什么卵用。。。</p>
 <p>首先需要winfsp，然后写对命令就挂好了。</p>
+<hr>
+<p>发现并没有那么简单，比如为了效率需要apply google API ID</p>
+<h3 id="Making-your-own-client-id"><a href="#Making-your-own-client-id" class="headerlink" title="Making your own client_id"></a>Making your own client_id</h3><p>When you use rclone with Google drive in its default configuration you are using rclone’s client_id. This is shared between all the rclone users. There is a global rate limit on the number of queries per second that each client_id can do set by Google. rclone already has a high quota and I will continue to make sure it is high enough by contacting Google.</p>
+<p>It is strongly recommended to use your own client ID as the default rclone ID is heavily used. If you have multiple services running, it is recommended to use an API key for each service. The default Google quota is 10 transactions per second so it is recommended to stay under that number as if you use more than that, it will cause rclone to rate limit and make things slower.</p>
+<p>Here is how to create your own Google Drive client ID for rclone:</p>
+<ol>
+<li>Log into the <a href="https://console.developers.google.com/" target="_blank" rel="noopener">Google API Console</a> with your Google account. It doesn’t matter what Google account you use. (It need not be the same account as the Google Drive you want to access)</li>
+<li>Select a project or create a new project.</li>
+<li>Under “ENABLE APIS AND SERVICES” search for “Drive”, and enable the “Google Drive API”.</li>
+<li>Click “Credentials” in the left-side panel (not “Create credentials”, which opens the wizard), then “Create credentials”</li>
+<li>If you already configured an “Oauth Consent Screen”, then skip to the next step; if not, click on “CONFIGURE CONSENT SCREEN” button (near the top right corner of the right panel), then select “External” and click on “CREATE”; on the next screen, enter an “Application name” (“rclone” is OK) then click on “Save” (all other data is optional). Click again on “Credentials” on the left panel to go back to the “Credentials” screen.</li>
+</ol>
+<p>(PS: if you are a GSuite user, you could also select “Internal” instead of “External” above, but this has not been tested/documented so far).</p>
+<ol>
+<li>Click on the “+ CREATE CREDENTIALS” button at the top of the screen, then select “OAuth client ID”.</li>
+<li>Choose an application type of “Desktop app” if you using a Google account or “Other” if you using a GSuite account and click “Create”. (the default name is fine)</li>
+<li>It will show you a client ID and client secret. Use these values in rclone config to add a new remote or edit an existing remote.</li>
+</ol>
+<p>Be aware that, due to the “enhanced security” recently introduced by Google, you are theoretically expected to “submit your app for verification” and then wait a few weeks(!) for their response; in practice, you can go right ahead and use the client ID and client secret with rclone, the only issue will be a very scary confirmation screen shown when you connect via your browser for rclone to be able to get its token-id (but as this only happens during the remote configuration, it’s not such a big deal)</p>
+<hr>
+<p>starrydream@mail.oso.ac.cn</p>
+<p>GJh2JQ35</p>
+<p><a href="https://office.oso.ac.cn" target="_blank" rel="noopener">https://office.oso.ac.cn</a></p>
+<p>留个备用的，虽然OneDrive挺垃圾的。。。</p>
+<hr>
+<p>Due to the evil gov and relevant departments , I will transfer my steam account to another high-price country : Hong Kong , United States , Japan or UK.</p>
+<p>(Decide to change to USA)</p>
+<p><img src="\images\Steam1.png" alt="image-20200602024443095"></p>
 
       
     </div>
@@ -508,6 +537,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/03/2020.6.3/" rel="prev" title="2020.6.3">
+                2020.6.3 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -559,10 +592,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -582,8 +615,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">190</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">192</span>
+                    <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
               
@@ -833,8 +866,10 @@
                     
                       
                     
-                    <span class="site-state-item-count">118</span>
-                    <span class="site-state-item-name">tags</span>
+                      
+                    
+                    <span class="site-state-item-count">119</span>
+                    <span class="site-state-item-name">Tags</span>
                   
                 </div>
               
@@ -886,7 +921,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installing-on-Windows"><span class="nav-number">1.</span> <span class="nav-text">Installing on Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-caveats"><span class="nav-number">1.1.</span> <span class="nav-text">Windows caveats</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mount-as-a-network-drive"><span class="nav-number">1.2.</span> <span class="nav-text">Mount as a network drive</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limitations"><span class="nav-number">2.</span> <span class="nav-text">Limitations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rclone-mount-vs-rclone-sync-copy"><span class="nav-number">3.</span> <span class="nav-text">rclone mount vs rclone sync/copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attribute-caching"><span class="nav-number">4.</span> <span class="nav-text">Attribute caching</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installing-on-Windows"><span class="nav-number">1.</span> <span class="nav-text">Installing on Windows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-caveats"><span class="nav-number">1.1.</span> <span class="nav-text">Windows caveats</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mount-as-a-network-drive"><span class="nav-number">1.2.</span> <span class="nav-text">Mount as a network drive</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limitations"><span class="nav-number">2.</span> <span class="nav-text">Limitations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rclone-mount-vs-rclone-sync-copy"><span class="nav-number">3.</span> <span class="nav-text">rclone mount vs rclone sync/copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attribute-caching"><span class="nav-number">4.</span> <span class="nav-text">Attribute caching</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Making-your-own-client-id"><span class="nav-number">4.1.</span> <span class="nav-text">Making your own client_id</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -921,7 +956,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
 
 
 
